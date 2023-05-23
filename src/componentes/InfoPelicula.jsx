@@ -8,11 +8,13 @@ const InfoPelicula = ({ pelicula, onClose }) => {
     setResena(e.target.value);
   };
 
+  // Si no hay pelicula seleccionada no se muestra el modal
   if (!pelicula) {
     return null;
   }
 
   return (
+    // Funcionamento y vista de la ventana modal
     <Modal show={!!pelicula} onHide={onClose}>
       <Modal.Header closeButton className='bg-dark text-white'>
         <Modal.Title>{pelicula.title}</Modal.Title>
@@ -34,6 +36,7 @@ const InfoPelicula = ({ pelicula, onClose }) => {
             {/* Agregar más detalles de la película según la API */}
           </div>
         </div>
+        {/* Formulario para la reseña */}
         <Form.Group controlId="resena">
           <Form.Label>Reseña:</Form.Label>
           <Form.Control as="textarea" rows={3} value={resena} onChange={guardarResena} />
@@ -51,7 +54,7 @@ const InfoPelicula = ({ pelicula, onClose }) => {
         </Button>
         <div className="rating-stars">
           <label>Valoración:</label>
-          {/* Componente de calificación */}
+          {/* Calificación */}
         </div>
       </Modal.Footer>
     </Modal>

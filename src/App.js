@@ -8,6 +8,7 @@ import './App.css';
 // Importacion de componentes
 import { logoBase64 } from './componentes/ImagenBase64';
 import { Inicio } from './componentes/Inicio'
+import Banner from './componentes/Banner';
 
 // Librerias para la creacion de rutas
 import {
@@ -20,6 +21,7 @@ import {
 // Importacion de herramientas de bootstrap
 import { Navbar, Container, Nav, Form, FormControl, Button } from 'react-bootstrap';
 import { BsSearch } from 'react-icons/bs';
+
 
 function App() {
   const logo = logoBase64;
@@ -65,12 +67,16 @@ function App() {
             </Navbar.Collapse>
           </Container>
         </Navbar>
-        {/* Aquí va el resto de tu contenido y rutas */}
       </div>
+      {/* Contenedor de las rutas */}
       <div className='container mt-5'>
         <Routes>
-          <Route exact path="/" element={<Inicio/>} />
+          <Route exact path="/" element={<Inicio />} />
         </Routes>
+      </div>
+      {/* Contenedor del banner */}
+      <div className='container mt-5'>
+        <Banner />
       </div>
     </Router>
   );
