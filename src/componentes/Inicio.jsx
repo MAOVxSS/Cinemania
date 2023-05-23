@@ -1,37 +1,47 @@
-// Se importa useState para el uso de estados que servira en la API
 import React, { useEffect, useState } from 'react';
-// Paqueteria de bootstrap para los estilos
 import { Card, Container, Row, Col } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-// Importacion el hook para el acceso a la API
 import { getPopularMovies } from './API';
+import InfoPelicula from './InfoPelicula';
 
 export const Inicio = () => {
-  const [movies, setMovies] = useState([]);
+  const [peliculas, setPeliculas] = useState([]);
+  const [peliculaSeleccionada, setPeliculaSeleccionada] = useState(null);
 
   useEffect(() => {
-    const fetchMovies = async () => {
-      const popularMovies = await getPopularMovies();
-      setMovies(popularMovies);
+    const obtenerPeliculasPopulares = async () => {
+      const peliculasPopulares = await getPopularMovies();
+      setPeliculas(peliculasPopulares);
     };
 
-    fetchMovies();
+    obtenerPeliculasPopulares();
   }, []);
+
+  const abrirModal = (pelicula) => {
+    setPeliculaSeleccionada(pelicula);
+  };
+
+  const cerrarModal = () => {
+    setPeliculaSeleccionada(null);
+  };
 
   return (
     <Container className='text-white'>
+      <h1>Películas populares</h1>
       <Row>
-        {movies.map((movie) => (
-          <Col sm={6} md={4} lg={3} key={movie.id}>
-            <Card className='bg-dark mt-3 text-light '>
-              <Card.Img variant="top" src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} />
+        {peliculas.map((pelicula) => (
+          <Col sm={6} md={4} lg={3} key={pelicula.id}>
+            <Card className='bg-dark mt-3 text-light' onClick={() => abrirModal(pelicula)}>
+              <Card.Img variant="top" src={`https://image.tmdb.org/t/p/w500${pelicula.poster_path}`} />
               <Card.Body>
-                <Card.Title>{movie.title}</Card.Title>
+                <Card.Title>{pelicula.title}</Card.Title>
               </Card.Body>
             </Card>
           </Col>
         ))}
       </Row>
+
+      <InfoPelicula pelicula={peliculaSeleccionada} onClose={cerrarModal} />
     </Container>
   );
 };
