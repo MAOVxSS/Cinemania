@@ -1,20 +1,44 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
+import axios from 'axios';
 
 const InfoPelicula = ({ pelicula, onClose }) => {
   const [resena, setResena] = useState('');
+  const [generos, setGeneros] = useState([]);
 
   const guardarResena = (e) => {
     setResena(e.target.value);
   };
 
-  // Si no hay pelicula seleccionada no se muestra el modal
+  useEffect(() => {
+    obtenerGeneros();
+  }, []);
+
+  const obtenerGeneros = async () => {
+    const API_KEY = '7e7a5dfc44d92090d322e49610a9e8ba';
+    try {
+      const response = await axios.get(
+        `https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}&language=es`
+      );
+      setGeneros(response.data.genres);
+    } catch (error) {
+      console.error('Error al obtener los géneros:', error);
+    }
+  };
+
+  const obtenerNombresGeneros = (generoIds) => {
+    const nombresGeneros = generoIds.map((generoId) => {
+      const genero = generos.find((genero) => genero.id === generoId);
+      return genero ? genero.name : '';
+    });
+    return nombresGeneros.join(', ');
+  };
+
   if (!pelicula) {
     return null;
   }
 
   return (
-    // Funcionamento y vista de la ventana modal
     <Modal show={!!pelicula} onHide={onClose}>
       <Modal.Header closeButton className='bg-dark text-white'>
         <Modal.Title>{pelicula.title}</Modal.Title>
@@ -27,16 +51,16 @@ const InfoPelicula = ({ pelicula, onClose }) => {
           <div className="col-md-8">
             <h5>Descripción:</h5>
             <p>{pelicula.overview}</p>
-            <h5>Valoracion:</h5>
+            <h5>Valoración:</h5>
             <p>{pelicula.vote_average} de 10.0</p>
             <h5>Total de votantes:</h5>
             <p>{pelicula.vote_count} personas</p>
             <h5>Fecha de estreno:</h5>
             <p>{pelicula.release_date}</p>
-            {/* Agregar más detalles de la película según la API */}
+            <h5>Género:</h5>
+            <p>{obtenerNombresGeneros(pelicula.genre_ids)}</p>
           </div>
         </div>
-        {/* Formulario para la reseña */}
         <Form.Group controlId="resena">
           <Form.Label>Reseña:</Form.Label>
           <Form.Control as="textarea" rows={3} value={resena} onChange={guardarResena} />

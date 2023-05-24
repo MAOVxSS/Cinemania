@@ -8,10 +8,11 @@ import { bannerBase64 } from './ImagenBase64';
 const Banner = () => {
   const banner = bannerBase64;
   return (
-    <div className="bg-dark py-4">
+    <div className="py-2 text-center">
       <Container>
-        <Col md={12} className="mx-auto">
-          <img src={`data:image/png;base64, ${banner}`} alt="Logo del desarrollador" className="img-fluid w-100" />
+        <Col md={10} className="mx-auto d-flex justify-content-center align-items-center">
+          <img src={`data:image/png;base64, ${banner}`} alt="Logo del desarrollador" 
+          className="img-fluid w-auto" />
         </Col>
       </Container>
     </div>

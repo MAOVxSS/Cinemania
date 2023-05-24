@@ -8,7 +8,7 @@ const API_KEY = '7e7a5dfc44d92090d322e49610a9e8ba';
 export const APIPeliculasPopulares = async () => {
   try {
     const response = await axios.get(
-      `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}`
+      `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=es`
     );
     return response.data.results;
   } catch (error) {

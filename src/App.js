@@ -9,6 +9,7 @@ import './App.css';
 import { logoBase64 } from './componentes/ImagenBase64';
 import { Inicio } from './componentes/Inicio'
 import Banner from './componentes/Banner';
+import PaginaPeliculas from './componentes/PaginaPeliculas';
 
 // Librerias para la creacion de rutas
 import {
@@ -21,6 +22,7 @@ import {
 // Importacion de herramientas de bootstrap
 import { Navbar, Container, Nav, Form, FormControl, Button } from 'react-bootstrap';
 import { BsSearch } from 'react-icons/bs';
+
 
 
 function App() {
@@ -72,6 +74,9 @@ function App() {
       <div className='container mt-5'>
         <Routes>
           <Route exact path="/" element={<Inicio />} />
+        </Routes>
+        <Routes>
+          <Route exact path="/peliculas" element={<PaginaPeliculas />} />
         </Routes>
       </div>
       {/* Contenedor del banner */}

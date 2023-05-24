@@ -3,23 +3,28 @@ import React, { useEffect, useState } from 'react';
 import { Card, Container, Row, Col, Pagination } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 // Componentes para acceso a la API y mostrar datos
-import { APIPeliculasPopulares } from './API';
 import InfoPelicula from './InfoPelicula';
+// Para solicitud HTTP
+import axios from 'axios';
 
 export const Inicio = () => {
   const [peliculas, setPeliculas] = useState([]); // Estado para almacenar las películas
   const [peliculaSeleccionada, setPeliculaSeleccionada] = useState(null); // Estado para la película seleccionada
   const [paginaActual, setPaginaActual] = useState(1); // Estado para la página actual
   const peliculasPorPagina = 8; // Número de películas a mostrar por página
+  // Clave de la Api
+  const API_KEY = '7e7a5dfc44d92090d322e49610a9e8ba';
 
   useEffect(() => {
     const obtenerPeliculasPopulares = async () => {
       try {
-        const peliculasPopulares = await APIPeliculasPopulares();
-        console.log('Peliculas obtenidas:', peliculasPopulares); // Imprimir las películas obtenidas en la consola
-        setPeliculas(peliculasPopulares); // Actualizar el estado con las películas obtenidas
+        const response = await axios.get(
+          `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=es`
+        );
+        setPeliculas(response.data.results);
       } catch (error) {
-        console.log('Error al obtener las películas populares:', error); // Manejo de error al obtener las películas
+        console.error('Error al obtener las películas:', error);
+        setPeliculas([]);
       }
     };
 
