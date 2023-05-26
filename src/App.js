@@ -10,6 +10,8 @@ import { logoBase64 } from './componentes/ImagenBase64';
 import { Inicio } from './componentes/Inicio'
 import Banner from './componentes/Banner';
 import PaginaPeliculas from './componentes/PaginaPeliculas';
+import BusquedaBarra from './componentes/BusquedaBarra';
+import Resultados from './componentes/ResultadosBusqueda';
 
 // Librerias para la creacion de rutas
 import {
@@ -20,11 +22,7 @@ import {
 } from "react-router-dom";
 
 // Importacion de herramientas de bootstrap
-import { Navbar, Container, Nav, Form, FormControl, Button } from 'react-bootstrap';
-import { BsSearch } from 'react-icons/bs';
-
-
-
+import { Navbar, Container, Nav } from 'react-bootstrap';
 function App() {
   const logo = logoBase64;
   return (
@@ -38,12 +36,7 @@ function App() {
                 alt="Logo"
               />
             </Navbar.Brand>
-            <Form className="d-flex ms-5 flex-grow-1">
-              <FormControl type="search" placeholder="Buscar Pelicula" className="me-2 flex-grow-1" aria-label='Search' />
-              <Button variant="outline-danger" className='search-button'>
-                <BsSearch />
-              </Button>
-            </Form>
+            <BusquedaBarra />
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="ms-5 flex-grow-1">
@@ -55,9 +48,6 @@ function App() {
                 </Nav.Link>
                 <Nav.Link as={Link} to="/mi-cuenta">
                   Mi cuenta
-                </Nav.Link>
-                <Nav.Link as={Link} to="/notificaciones">
-                  Notificaciones
                 </Nav.Link>
                 <Nav.Link as={Link} to="/comunidad">
                   Comunidad
@@ -74,10 +64,10 @@ function App() {
       <div className='container mt-5'>
         <Routes>
           <Route exact path="/" element={<Inicio />} />
-        </Routes>
-        <Routes>
           <Route exact path="/peliculas" element={<PaginaPeliculas />} />
+          <Route path="/resultados" element={<Resultados />} />
         </Routes>
+
       </div>
       {/* Contenedor del banner */}
       <div className='container mt-5'>

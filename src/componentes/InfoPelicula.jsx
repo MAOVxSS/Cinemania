@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from 'react';
-// Bootstrap
-import { Modal, Button, Form } from 'react-bootstrap';
-//PAra la solicitud de HTTP
+import { Modal, Button, Form, Row, Col } from 'react-bootstrap';
 import axios from 'axios';
 
 const InfoPelicula = ({ pelicula, onClose }) => {
-  // Estados para manejar reseña y infp
   const [resena, setResena] = useState('');
   const [generos, setGeneros] = useState([]);
 
@@ -17,9 +14,6 @@ const InfoPelicula = ({ pelicula, onClose }) => {
     obtenerGeneros();
   }, []);
 
-  // Funcion para acceder y obtener los generos de las peliculas
-  // Se debe obtener asi ya que los generos se manejan con un id y name
-  // Entonces hay que convertir ese id a una palabra para mostrar
   const obtenerGeneros = async () => {
     const API_KEY = '7e7a5dfc44d92090d322e49610a9e8ba';
     try {
@@ -46,42 +40,48 @@ const InfoPelicula = ({ pelicula, onClose }) => {
 
   return (
     <Modal show={!!pelicula} onHide={onClose}>
-      <Modal.Header closeButton className='bg-dark text-white'> 
+      <Modal.Header closeButton className="bg-dark text-white">
         <Modal.Title>{pelicula.title}</Modal.Title>
       </Modal.Header>
-      <Modal.Body className='bg-dark text-white'>
-        <div className="row">
-          <div className="col-md-4">
-            <img src={`https://image.tmdb.org/t/p/w500${pelicula.poster_path}`} alt={pelicula.title} className="img-fluid" />
-          </div>
-          <div className="col-md-8">
+      <Modal.Body className="bg-dark text-white">
+        <Row>
+          <Col md={4}>
+            <img
+              src={`https://image.tmdb.org/t/p/w500${pelicula.poster_path}`}
+              alt={pelicula.title}
+              className="img-fluid"
+            />
+          </Col>
+          <Col md={8}>
             <h5>Descripción:</h5>
             <p>{pelicula.overview}</p>
-            <h5>Valoración:</h5>
-            <p>{pelicula.vote_average} de 10.0</p>
-            <h5>Total de votantes:</h5>
-            <p>{pelicula.vote_count} personas</p>
+            <Row>
+              <Col>
+                <h5>Valoración:</h5>
+                <p>{pelicula.vote_average} de 10.0</p>
+              </Col>
+              <Col>
+                <h5>Total de votantes:</h5>
+                <p>{pelicula.vote_count} personas</p>
+              </Col>
+            </Row>
             <h5>Fecha de estreno:</h5>
             <p>{pelicula.release_date}</p>
             <h5>Género:</h5>
             <p>{obtenerNombresGeneros(pelicula.genre_ids)}</p>
-          </div>
-        </div>
+          </Col>
+        </Row>
         <Form.Group controlId="resena">
           <Form.Label>Reseña:</Form.Label>
           <Form.Control as="textarea" rows={3} value={resena} onChange={guardarResena} />
         </Form.Group>
       </Modal.Body>
-      <Modal.Footer className='bg-dark text-white'>
+      <Modal.Footer className="bg-dark text-white">
         <Button variant="secondary" onClick={onClose}>
           Salir
         </Button>
-        <Button variant="primary">
-          Agregar a Lista de seguimiento
-        </Button>
-        <Button variant="primary">
-          Dar reseña
-        </Button>
+        <Button variant="primary">Agregar a Lista de seguimiento</Button>
+        <Button variant="primary">Dar reseña</Button>
         <div className="rating-stars">
           <label>Valoración:</label>
           {/* Calificación */}
