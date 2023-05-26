@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
+// Bootstrap
 import { Modal, Button, Form } from 'react-bootstrap';
+//PAra la solicitud de HTTP
 import axios from 'axios';
 
 const InfoPelicula = ({ pelicula, onClose }) => {
+  // Estados para manejar reseña y infp
   const [resena, setResena] = useState('');
   const [generos, setGeneros] = useState([]);
 
@@ -14,6 +17,9 @@ const InfoPelicula = ({ pelicula, onClose }) => {
     obtenerGeneros();
   }, []);
 
+  // Funcion para acceder y obtener los generos de las peliculas
+  // Se debe obtener asi ya que los generos se manejan con un id y name
+  // Entonces hay que convertir ese id a una palabra para mostrar
   const obtenerGeneros = async () => {
     const API_KEY = '7e7a5dfc44d92090d322e49610a9e8ba';
     try {
@@ -40,7 +46,7 @@ const InfoPelicula = ({ pelicula, onClose }) => {
 
   return (
     <Modal show={!!pelicula} onHide={onClose}>
-      <Modal.Header closeButton className='bg-dark text-white'>
+      <Modal.Header closeButton className='bg-dark text-white'> 
         <Modal.Title>{pelicula.title}</Modal.Title>
       </Modal.Header>
       <Modal.Body className='bg-dark text-white'>
