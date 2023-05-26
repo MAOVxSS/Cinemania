@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 // Librerias necesarias para usar react-bootstrap
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -12,6 +12,7 @@ import Banner from './componentes/Banner';
 import PaginaPeliculas from './componentes/PaginaPeliculas';
 import BusquedaBarra from './componentes/BusquedaBarra';
 import Resultados from './componentes/ResultadosBusqueda';
+import VentanaLogin from './componentes/VentanaLogin';
 
 // Librerias para la creacion de rutas
 import {
@@ -22,9 +23,21 @@ import {
 } from "react-router-dom";
 
 // Importacion de herramientas de bootstrap
-import { Navbar, Container, Nav } from 'react-bootstrap';
+import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
 function App() {
   const logo = logoBase64;
+
+  // Estados para el inicio de sesion
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const handleLogin = () => {
+    setIsLoggedIn(true);
+  };
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+  };
+
   return (
     <Router>
       <div>
@@ -46,9 +59,19 @@ function App() {
                 <Nav.Link as={Link} to="/peliculas">
                   Películas
                 </Nav.Link>
-                <Nav.Link as={Link} to="/mi-cuenta">
-                  Mi cuenta
-                </Nav.Link>
+                {isLoggedIn ? (
+                  <NavDropdown title="Mi cuenta" id="basic-nav-dropdown" className='border'>
+                    <NavDropdown.Item as={Link} to="/configuracion">Configuración</NavDropdown.Item>
+                    <NavDropdown.Item as={Link} to="/notificaciones">Notificaciones</NavDropdown.Item>
+                    <NavDropdown.Item as={Link} to="/lista-seguimiento">Lista de Seguimiento</NavDropdown.Item>
+                    <NavDropdown.Item as={Link} to="/peliculas-ver">Películas por ver</NavDropdown.Item>
+                    <NavDropdown.Item onClick={handleLogout}>Cerrar sesión</NavDropdown.Item>
+                  </NavDropdown>
+                ) : (
+                  <Nav.Link>
+                    <VentanaLogin onLogin={handleLogin} />
+                  </Nav.Link>
+                )}
                 <Nav.Link as={Link} to="/comunidad">
                   Comunidad
                 </Nav.Link>
@@ -66,6 +89,8 @@ function App() {
           <Route exact path="/" element={<Inicio />} />
           <Route exact path="/peliculas" element={<PaginaPeliculas />} />
           <Route path="/resultados" element={<Resultados />} />
+          <Route path="/registro" element={<PaginaPeliculas />} />
+            
         </Routes>
 
       </div>
