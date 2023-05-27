@@ -1,0 +1,219 @@
+[debug] [2023-05-27T01:07:37.353Z] ----------------------------------------------------------------------
+[debug] [2023-05-27T01:07:37.356Z] Command:       D:\Program Files\NodeJs\node.exe C:\Users\halom\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js emulators:start
+[debug] [2023-05-27T01:07:37.357Z] CLI Version:   12.2.1
+[debug] [2023-05-27T01:07:37.357Z] Platform:      win32
+[debug] [2023-05-27T01:07:37.357Z] Node Version:  v18.15.0
+[debug] [2023-05-27T01:07:37.358Z] Time:          Fri May 26 2023 19:07:37 GMT-0600 (hora estándar central)
+[debug] [2023-05-27T01:07:37.358Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2023-05-27T01:07:37.491Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2023-05-27T01:07:37.492Z] > authorizing via signed-in user (equipox.tese@gmail.com)
+[debug] [2023-05-27T01:07:37.638Z] java version "15.0.1" 2020-10-20
+Java(TM) SE Runtime Environment (build 15.0.1+9-18)
+
+[debug] [2023-05-27T01:07:37.640Z] Java HotSpot(TM) 64-Bit Server VM (build 15.0.1+9-18, mixed mode, sharing)
+
+[debug] [2023-05-27T01:07:37.656Z] Parsed Java major version: 15
+[info] i  emulators: Starting emulators: firestore, hosting {"metadata":{"emulator":{"name":"hub"},"message":"Starting emulators: firestore, hosting"}}
+[debug] [2023-05-27T01:07:37.669Z] [logging] Logging Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2023-05-27T01:07:37.669Z] [firestore] Firestore Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2023-05-27T01:07:37.669Z] [firestore.websocket] websocket server for firestore only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2023-05-27T01:07:37.670Z] [hosting] Hosting Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2023-05-27T01:07:37.670Z] assigned listening specs for emulators {"user":{"hub":[{"address":"127.0.0.1","family":"IPv4","port":4400},{"address":"::1","family":"IPv6","port":4400}],"ui":[{"address":"127.0.0.1","family":"IPv4","port":4000},{"address":"::1","family":"IPv6","port":4000}],"logging":[{"address":"127.0.0.1","family":"IPv4","port":4500}],"firestore":[{"address":"127.0.0.1","family":"IPv4","port":8080}],"firestore.websocket":[{"address":"127.0.0.1","family":"IPv4","port":9150}],"hosting":[{"address":"127.0.0.1","family":"IPv4","port":5000}]},"metadata":{"message":"assigned listening specs for emulators"}}
+[debug] [2023-05-27T01:07:37.698Z] [hub] writing locator at C:\Users\halom\AppData\Local\Temp\hub-cinemania-e80e8.json
+[info] i  firestore: downloading cloud-firestore-emulator-v1.17.4.jar... {"metadata":{"emulator":{"name":"firestore"},"message":"downloading cloud-firestore-emulator-v1.17.4.jar..."}}
+[debug] [2023-05-27T01:07:37.714Z] >>> [apiv2][query] GET https://storage.googleapis.com/firebase-preview-drop/emulator/cloud-firestore-emulator-v1.17.4.jar 
+[debug] [2023-05-27T01:07:38.006Z] <<< [apiv2][status] GET https://storage.googleapis.com/firebase-preview-drop/emulator/cloud-firestore-emulator-v1.17.4.jar 200
+[debug] [2023-05-27T01:07:38.006Z] <<< [apiv2][body] GET https://storage.googleapis.com/firebase-preview-drop/emulator/cloud-firestore-emulator-v1.17.4.jar [stream]
+[debug] [2023-05-27T01:07:44.886Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"firestore"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2023-05-27T01:07:44.887Z] Ignoring unsupported arg: single_project_mode_error {"metadata":{"emulator":{"name":"firestore"},"message":"Ignoring unsupported arg: single_project_mode_error"}}
+[debug] [2023-05-27T01:07:44.887Z] Starting Firestore Emulator with command {"binary":"java","args":["-Dgoogle.cloud_firestore.debug_log_level=FINE","-Duser.language=en","-jar","C:\\Users\\halom\\.cache\\firebase\\emulators\\cloud-firestore-emulator-v1.17.4.jar","--host","127.0.0.1","--port",8080,"--websocket_port",9150,"--project_id","cinemania-e80e8","--rules","D:\\Documentos\\Proyectos_React\\AppWebPeliculas\\cinemania\\firestore.rules","--single_project_mode",true],"optionalArgs":["port","webchannel_port","host","rules","websocket_port","functions_emulator","seed_from_export","project_id","single_project_mode"],"joinArgs":false} {"metadata":{"emulator":{"name":"firestore"},"message":"Starting Firestore Emulator with command {\"binary\":\"java\",\"args\":[\"-Dgoogle.cloud_firestore.debug_log_level=FINE\",\"-Duser.language=en\",\"-jar\",\"C:\\\\Users\\\\halom\\\\.cache\\\\firebase\\\\emulators\\\\cloud-firestore-emulator-v1.17.4.jar\",\"--host\",\"127.0.0.1\",\"--port\",8080,\"--websocket_port\",9150,\"--project_id\",\"cinemania-e80e8\",\"--rules\",\"D:\\\\Documentos\\\\Proyectos_React\\\\AppWebPeliculas\\\\cinemania\\\\firestore.rules\",\"--single_project_mode\",true],\"optionalArgs\":[\"port\",\"webchannel_port\",\"host\",\"rules\",\"websocket_port\",\"functions_emulator\",\"seed_from_export\",\"project_id\",\"single_project_mode\"],\"joinArgs\":false}"}}
+[info] i  firestore: Firestore Emulator logging to firestore-debug.log {"metadata":{"emulator":{"name":"firestore"},"message":"Firestore Emulator logging to \u001b[1mfirestore-debug.log\u001b[22m"}}
+[info] +  firestore: Firestore Emulator UI websocket is running on 9150. {"metadata":{"emulator":{"name":"firestore"},"message":"Firestore Emulator UI websocket is running on 9150."}}
+[debug] [2023-05-27T01:07:46.198Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/cinemania-e80e8/sites 
+[debug] [2023-05-27T01:07:46.862Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/cinemania-e80e8/sites 200
+[debug] [2023-05-27T01:07:46.862Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/cinemania-e80e8/sites {"sites":[{"name":"projects/cinemania-e80e8/sites/cinemania-e80e8","defaultUrl":"https://cinemania-e80e8.web.app","type":"DEFAULT_SITE"}]}
+[debug] [2023-05-27T01:07:46.862Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/cinemania-e80e8/webApps/-/config [none]
+[debug] [2023-05-27T01:07:47.391Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/cinemania-e80e8/webApps/-/config 200
+[debug] [2023-05-27T01:07:47.391Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/cinemania-e80e8/webApps/-/config {"projectId":"cinemania-e80e8","appId":"1:612603429277:web:b93807f8f3efaeb0e06f74","storageBucket":"cinemania-e80e8.appspot.com","apiKey":"AIzaSyDTHgvoCWou216gqpOqcrlnjmHl0K33-0M","authDomain":"cinemania-e80e8.firebaseapp.com","messagingSenderId":"612603429277"}
+[debug] [2023-05-27T01:07:47.397Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/cinemania-e80e8 [none]
+[debug] [2023-05-27T01:07:47.716Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/cinemania-e80e8 200
+[debug] [2023-05-27T01:07:47.716Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/cinemania-e80e8 {"projectId":"cinemania-e80e8","projectNumber":"612603429277","displayName":"cinemania","name":"projects/cinemania-e80e8","resources":{"hostingSite":"cinemania-e80e8"},"state":"ACTIVE","etag":"1_74f4a219-3c59-471e-8aa5-ef62ef33f8c2"}
+[info] i  hosting[cinemania-e80e8]: Serving hosting files from: public {"metadata":{"emulator":{"name":"hosting"},"message":"Serving hosting files from: \u001b[1mpublic\u001b[22m"}}
+[info] +  hosting[cinemania-e80e8]: Local server: http://127.0.0.1:5000 {"metadata":{"emulator":{"name":"hosting"},"message":"Local server: \u001b[4m\u001b[1mhttp://127.0.0.1:5000\u001b[22m\u001b[24m"}}
+[info] i  ui: downloading ui-v1.11.6.zip... {"metadata":{"emulator":{"name":"ui"},"message":"downloading ui-v1.11.6.zip..."}}
+[debug] [2023-05-27T01:07:47.810Z] >>> [apiv2][query] GET https://storage.googleapis.com/firebase-preview-drop/emulator/ui-v1.11.6.zip 
+[debug] [2023-05-27T01:07:48.123Z] <<< [apiv2][status] GET https://storage.googleapis.com/firebase-preview-drop/emulator/ui-v1.11.6.zip 200
+[debug] [2023-05-27T01:07:48.123Z] <<< [apiv2][body] GET https://storage.googleapis.com/firebase-preview-drop/emulator/ui-v1.11.6.zip [stream]
+[debug] [2023-05-27T01:07:48.923Z] Data is 3063444
+[debug] [2023-05-27T01:07:48.924Z] [unzip] Entry: client/ (compressed_size=0 bytes, uncompressed_size=0 bytes)
+[debug] [2023-05-27T01:07:48.924Z] [unzip] Processing entry: client\
+[debug] [2023-05-27T01:07:48.924Z] [unzip] mkdir: C:\Users\halom\.cache\firebase\emulators\ui-v1.11.6\client\
+[debug] [2023-05-27T01:07:48.926Z] [unzip] Entry: client/favicon.ico (compressed_size=2497 bytes, uncompressed_size=7406 bytes)
+[debug] [2023-05-27T01:07:48.926Z] [unzip] Processing entry: client\favicon.ico
+[debug] [2023-05-27T01:07:48.926Z] [unzip] else mkdir: C:\Users\halom\.cache\firebase\emulators\ui-v1.11.6\client
+[debug] [2023-05-27T01:07:48.927Z] [unzip] deflating: C:\Users\halom\.cache\firebase\emulators\ui-v1.11.6\client\favicon.ico
+[debug] [2023-05-27T01:07:48.931Z] [unzip] Entry: client/apple-touch-icon.png (compressed_size=7231 bytes, uncompressed_size=7367 bytes)
+[debug] [2023-05-27T01:07:48.931Z] [unzip] Processing entry: client\apple-touch-icon.png
+[debug] [2023-05-27T01:07:48.931Z] [unzip] else mkdir: C:\Users\halom\.cache\firebase\emulators\ui-v1.11.6\client
+[debug] [2023-05-27T01:07:48.931Z] [unzip] deflating: C:\Users\halom\.cache\firebase\emulators\ui-v1.11.6\client\apple-touch-icon.png
+[debug] [2023-05-27T01:07:48.933Z] [unzip] Entry: client/android-chrome-512x512.png (compressed_size=16987 bytes, uncompressed_size=18186 bytes)
+[debug] [2023-05-27T01:07:48.933Z] [unzip] Processing entry: client\android-chrome-512x512.png
+[debug] [2023-05-27T01:07:48.933Z] [unzip] else mkdir: C:\Users\halom\.cache\firebase\emulators\ui-v1.11.6\client
+[debug] [2023-05-27T01:07:48.934Z] [unzip] deflating: C:\Users\halom\.cache\firebase\emulators\ui-v1.11.6\client\android-chrome-512x512.png
+[debug] [2023-05-27T01:07:48.936Z] [unzip] Entry: client/assets/ (compressed_size=0 bytes, uncompressed_size=0 bytes)
+[debug] [2023-05-27T01:07:48.936Z] [unzip] Processing entry: client\assets\
+[debug] [2023-05-27T01:07:48.936Z] [unzip] mkdir: C:\Users\halom\.cache\firebase\emulators\ui-v1.11.6\client\assets\
+[debug] [2023-05-27T01:07:48.937Z] [unzip] Entry: client/assets/extensions/ (compressed_size=0 bytes, uncompressed_size=0 bytes)
+[debug] [2023-05-27T01:07:48.937Z] [unzip] Processing entry: client\assets\extensions\
+[debug] [2023-05-27T01:07:48.937Z] [unzip] mkdir: C:\Users\halom\.cache\firebase\emulators\ui-v1.11.6\client\assets\extensions\
+[debug] [2023-05-27T01:07:48.942Z] [unzip] Entry: client/assets/extensions/default-extension.png (compressed_size=1646 bytes, uncompressed_size=1657 bytes)
+[debug] [2023-05-27T01:07:48.943Z] [unzip] Processing entry: client\assets\extensions\default-extension.png
+[debug] [2023-05-27T01:07:48.943Z] [unzip] else mkdir: C:\Users\halom\.cache\firebase\emulators\ui-v1.11.6\client\assets\extensions
+[debug] [2023-05-27T01:07:48.943Z] [unzip] deflating: C:\Users\halom\.cache\firebase\emulators\ui-v1.11.6\client\assets\extensions\default-extension.png
+[debug] [2023-05-27T01:07:48.945Z] [unzip] Entry: client/assets/index.85584c3f.js (compressed_size=526096 bytes, uncompressed_size=1859818 bytes)
+[debug] [2023-05-27T01:07:48.945Z] [unzip] Processing entry: client\assets\index.85584c3f.js
+[debug] [2023-05-27T01:07:48.945Z] [unzip] else mkdir: C:\Users\halom\.cache\firebase\emulators\ui-v1.11.6\client\assets
+[debug] [2023-05-27T01:07:48.945Z] [unzip] deflating: C:\Users\halom\.cache\firebase\emulators\ui-v1.11.6\client\assets\index.85584c3f.js
+[debug] [2023-05-27T01:07:48.955Z] [unzip] Entry: client/assets/provider-icons/ (compressed_size=0 bytes, uncompressed_size=0 bytes)
+[debug] [2023-05-27T01:07:48.955Z] [unzip] Processing entry: client\assets\provider-icons\
+[debug] [2023-05-27T01:07:48.955Z] [unzip] mkdir: C:\Users\halom\.cache\firebase\emulators\ui-v1.11.6\client\assets\provider-icons\
+[debug] [2023-05-27T01:07:48.955Z] [unzip] Entry: client/assets/provider-icons/auth_service_oidc.svg (compressed_size=414 bytes, uncompressed_size=858 bytes)
+[debug] [2023-05-27T01:07:48.956Z] [unzip] Processing entry: client\assets\provider-icons\auth_service_oidc.svg
+[debug] [2023-05-27T01:07:48.956Z] [unzip] else mkdir: C:\Users\halom\.cache\firebase\emulators\ui-v1.11.6\client\assets\provider-icons
+[debug] [2023-05-27T01:07:48.956Z] [unzip] deflating: C:\Users\halom\.cache\firebase\emulators\ui-v1.11.6\client\assets\provider-icons\auth_service_oidc.svg
+[debug] [2023-05-27T01:07:48.957Z] [unzip] Entry: client/assets/provider-icons/auth_service_yahoo.svg (compressed_size=577 bytes, uncompressed_size=1182 bytes)
+[debug] [2023-05-27T01:07:48.957Z] [unzip] Processing entry: client\assets\provider-icons\auth_service_yahoo.svg
+[debug] [2023-05-27T01:07:48.957Z] [unzip] else mkdir: C:\Users\halom\.cache\firebase\emulators\ui-v1.11.6\client\assets\provider-icons
+[debug] [2023-05-27T01:07:48.957Z] [unzip] deflating: C:\Users\halom\.cache\firebase\emulators\ui-v1.11.6\client\assets\provider-icons\auth_service_yahoo.svg
+[debug] [2023-05-27T01:07:48.959Z] [unzip] Entry: client/assets/provider-icons/auth_service_phone.svg (compressed_size=261 bytes, uncompressed_size=414 bytes)
+[debug] [2023-05-27T01:07:48.959Z] [unzip] Processing entry: client\assets\provider-icons\auth_service_phone.svg
+[debug] [2023-05-27T01:07:48.959Z] [unzip] else mkdir: C:\Users\halom\.cache\firebase\emulators\ui-v1.11.6\client\assets\provider-icons
+[debug] [2023-05-27T01:07:48.959Z] [unzip] deflating: C:\Users\halom\.cache\firebase\emulators\ui-v1.11.6\client\assets\provider-icons\auth_service_phone.svg
+[debug] [2023-05-27T01:07:48.960Z] [unzip] Entry: client/assets/provider-icons/auth_service_saml.svg (compressed_size=575 bytes, uncompressed_size=1226 bytes)
+[debug] [2023-05-27T01:07:48.960Z] [unzip] Processing entry: client\assets\provider-icons\auth_service_saml.svg
+[debug] [2023-05-27T01:07:48.961Z] [unzip] else mkdir: C:\Users\halom\.cache\firebase\emulators\ui-v1.11.6\client\assets\provider-icons
+[debug] [2023-05-27T01:07:48.961Z] [unzip] deflating: C:\Users\halom\.cache\firebase\emulators\ui-v1.11.6\client\assets\provider-icons\auth_service_saml.svg
+[debug] [2023-05-27T01:07:48.962Z] [unzip] Entry: client/assets/provider-icons/auth_service_mslive.svg (compressed_size=203 bytes, uncompressed_size=378 bytes)
+[debug] [2023-05-27T01:07:48.962Z] [unzip] Processing entry: client\assets\provider-icons\auth_service_mslive.svg
+[debug] [2023-05-27T01:07:48.962Z] [unzip] else mkdir: C:\Users\halom\.cache\firebase\emulators\ui-v1.11.6\client\assets\provider-icons
+[debug] [2023-05-27T01:07:48.963Z] [unzip] deflating: C:\Users\halom\.cache\firebase\emulators\ui-v1.11.6\client\assets\provider-icons\auth_service_mslive.svg
+[debug] [2023-05-27T01:07:48.964Z] [unzip] Entry: client/assets/provider-icons/auth_service_facebook.svg (compressed_size=289 bytes, uncompressed_size=457 bytes)
+[debug] [2023-05-27T01:07:48.965Z] [unzip] Processing entry: client\assets\provider-icons\auth_service_facebook.svg
+[debug] [2023-05-27T01:07:48.965Z] [unzip] else mkdir: C:\Users\halom\.cache\firebase\emulators\ui-v1.11.6\client\assets\provider-icons
+[debug] [2023-05-27T01:07:48.966Z] [unzip] deflating: C:\Users\halom\.cache\firebase\emulators\ui-v1.11.6\client\assets\provider-icons\auth_service_facebook.svg
+[debug] [2023-05-27T01:07:48.967Z] [unzip] Entry: client/assets/provider-icons/auth_service_play_games.svg (compressed_size=565 bytes, uncompressed_size=1173 bytes)
+[debug] [2023-05-27T01:07:48.967Z] [unzip] Processing entry: client\assets\provider-icons\auth_service_play_games.svg
+[debug] [2023-05-27T01:07:48.967Z] [unzip] else mkdir: C:\Users\halom\.cache\firebase\emulators\ui-v1.11.6\client\assets\provider-icons
+[debug] [2023-05-27T01:07:48.968Z] [unzip] deflating: C:\Users\halom\.cache\firebase\emulators\ui-v1.11.6\client\assets\provider-icons\auth_service_play_games.svg
+[debug] [2023-05-27T01:07:48.969Z] [unzip] Entry: client/assets/provider-icons/auth_service_github.svg (compressed_size=466 bytes, uncompressed_size=838 bytes)
+[debug] [2023-05-27T01:07:48.969Z] [unzip] Processing entry: client\assets\provider-icons\auth_service_github.svg
+[debug] [2023-05-27T01:07:48.969Z] [unzip] else mkdir: C:\Users\halom\.cache\firebase\emulators\ui-v1.11.6\client\assets\provider-icons
+[debug] [2023-05-27T01:07:48.969Z] [unzip] deflating: C:\Users\halom\.cache\firebase\emulators\ui-v1.11.6\client\assets\provider-icons\auth_service_github.svg
+[debug] [2023-05-27T01:07:48.971Z] [unzip] Entry: client/assets/provider-icons/auth_service_apple.svg (compressed_size=230 bytes, uncompressed_size=334 bytes)
+[debug] [2023-05-27T01:07:48.971Z] [unzip] Processing entry: client\assets\provider-icons\auth_service_apple.svg
+[debug] [2023-05-27T01:07:48.971Z] [unzip] else mkdir: C:\Users\halom\.cache\firebase\emulators\ui-v1.11.6\client\assets\provider-icons
+[debug] [2023-05-27T01:07:48.971Z] [unzip] deflating: C:\Users\halom\.cache\firebase\emulators\ui-v1.11.6\client\assets\provider-icons\auth_service_apple.svg
+[debug] [2023-05-27T01:07:48.973Z] [unzip] Entry: client/assets/provider-icons/auth_service_google.svg (compressed_size=409 bytes, uncompressed_size=720 bytes)
+[debug] [2023-05-27T01:07:48.973Z] [unzip] Processing entry: client\assets\provider-icons\auth_service_google.svg
+[debug] [2023-05-27T01:07:48.973Z] [unzip] else mkdir: C:\Users\halom\.cache\firebase\emulators\ui-v1.11.6\client\assets\provider-icons
+[debug] [2023-05-27T01:07:48.973Z] [unzip] deflating: C:\Users\halom\.cache\firebase\emulators\ui-v1.11.6\client\assets\provider-icons\auth_service_google.svg
+[debug] [2023-05-27T01:07:48.975Z] [unzip] Entry: client/assets/provider-icons/auth_service_email.svg (compressed_size=228 bytes, uncompressed_size=326 bytes)
+[debug] [2023-05-27T01:07:48.975Z] [unzip] Processing entry: client\assets\provider-icons\auth_service_email.svg
+[debug] [2023-05-27T01:07:48.975Z] [unzip] else mkdir: C:\Users\halom\.cache\firebase\emulators\ui-v1.11.6\client\assets\provider-icons
+[debug] [2023-05-27T01:07:48.975Z] [unzip] deflating: C:\Users\halom\.cache\firebase\emulators\ui-v1.11.6\client\assets\provider-icons\auth_service_email.svg
+[debug] [2023-05-27T01:07:48.977Z] [unzip] Entry: client/assets/provider-icons/auth_service_twitter.svg (compressed_size=444 bytes, uncompressed_size=751 bytes)
+[debug] [2023-05-27T01:07:48.977Z] [unzip] Processing entry: client\assets\provider-icons\auth_service_twitter.svg
+[debug] [2023-05-27T01:07:48.977Z] [unzip] else mkdir: C:\Users\halom\.cache\firebase\emulators\ui-v1.11.6\client\assets\provider-icons
+[debug] [2023-05-27T01:07:48.977Z] [unzip] deflating: C:\Users\halom\.cache\firebase\emulators\ui-v1.11.6\client\assets\provider-icons\auth_service_twitter.svg
+[debug] [2023-05-27T01:07:48.979Z] [unzip] Entry: client/assets/provider-icons/auth_service_game_center.svg (compressed_size=991 bytes, uncompressed_size=3921 bytes)
+[debug] [2023-05-27T01:07:48.979Z] [unzip] Processing entry: client\assets\provider-icons\auth_service_game_center.svg
+[debug] [2023-05-27T01:07:48.979Z] [unzip] else mkdir: C:\Users\halom\.cache\firebase\emulators\ui-v1.11.6\client\assets\provider-icons
+[debug] [2023-05-27T01:07:48.979Z] [unzip] deflating: C:\Users\halom\.cache\firebase\emulators\ui-v1.11.6\client\assets\provider-icons\auth_service_game_center.svg
+[debug] [2023-05-27T01:07:48.980Z] [unzip] Entry: client/assets/img/ (compressed_size=0 bytes, uncompressed_size=0 bytes)
+[debug] [2023-05-27T01:07:48.981Z] [unzip] Processing entry: client\assets\img\
+[debug] [2023-05-27T01:07:48.981Z] [unzip] mkdir: C:\Users\halom\.cache\firebase\emulators\ui-v1.11.6\client\assets\img\
+[debug] [2023-05-27T01:07:48.981Z] [unzip] Entry: client/assets/img/database.png (compressed_size=29449 bytes, uncompressed_size=29988 bytes)
+[debug] [2023-05-27T01:07:48.982Z] [unzip] Processing entry: client\assets\img\database.png
+[debug] [2023-05-27T01:07:48.982Z] [unzip] else mkdir: C:\Users\halom\.cache\firebase\emulators\ui-v1.11.6\client\assets\img
+[debug] [2023-05-27T01:07:48.982Z] [unzip] deflating: C:\Users\halom\.cache\firebase\emulators\ui-v1.11.6\client\assets\img\database.png
+[debug] [2023-05-27T01:07:48.983Z] [unzip] Entry: client/assets/index.b9383ce5.css (compressed_size=37605 bytes, uncompressed_size=321268 bytes)
+[debug] [2023-05-27T01:07:48.983Z] [unzip] Processing entry: client\assets\index.b9383ce5.css
+[debug] [2023-05-27T01:07:48.983Z] [unzip] else mkdir: C:\Users\halom\.cache\firebase\emulators\ui-v1.11.6\client\assets
+[debug] [2023-05-27T01:07:48.984Z] [unzip] deflating: C:\Users\halom\.cache\firebase\emulators\ui-v1.11.6\client\assets\index.b9383ce5.css
+[debug] [2023-05-27T01:07:48.986Z] [unzip] Entry: client/assets/index.85584c3f.js.map (compressed_size=1778028 bytes, uncompressed_size=7960238 bytes)
+[debug] [2023-05-27T01:07:48.986Z] [unzip] Processing entry: client\assets\index.85584c3f.js.map
+[debug] [2023-05-27T01:07:48.986Z] [unzip] else mkdir: C:\Users\halom\.cache\firebase\emulators\ui-v1.11.6\client\assets
+[debug] [2023-05-27T01:07:48.986Z] [unzip] deflating: C:\Users\halom\.cache\firebase\emulators\ui-v1.11.6\client\assets\index.85584c3f.js.map
+[debug] [2023-05-27T01:07:49.032Z] [unzip] Entry: client/safari-pinned-tab.svg (compressed_size=838 bytes, uncompressed_size=1504 bytes)
+[debug] [2023-05-27T01:07:49.032Z] [unzip] Processing entry: client\safari-pinned-tab.svg
+[debug] [2023-05-27T01:07:49.033Z] [unzip] else mkdir: C:\Users\halom\.cache\firebase\emulators\ui-v1.11.6\client
+[debug] [2023-05-27T01:07:49.033Z] [unzip] deflating: C:\Users\halom\.cache\firebase\emulators\ui-v1.11.6\client\safari-pinned-tab.svg
+[debug] [2023-05-27T01:07:49.034Z] [unzip] Entry: client/mstile-150x150.png (compressed_size=5406 bytes, uncompressed_size=5723 bytes)
+[debug] [2023-05-27T01:07:49.035Z] [unzip] Processing entry: client\mstile-150x150.png
+[debug] [2023-05-27T01:07:49.035Z] [unzip] else mkdir: C:\Users\halom\.cache\firebase\emulators\ui-v1.11.6\client
+[debug] [2023-05-27T01:07:49.035Z] [unzip] deflating: C:\Users\halom\.cache\firebase\emulators\ui-v1.11.6\client\mstile-150x150.png
+[debug] [2023-05-27T01:07:49.036Z] [unzip] Entry: client/browserconfig.xml (compressed_size=491 bytes, uncompressed_size=822 bytes)
+[debug] [2023-05-27T01:07:49.036Z] [unzip] Processing entry: client\browserconfig.xml
+[debug] [2023-05-27T01:07:49.036Z] [unzip] else mkdir: C:\Users\halom\.cache\firebase\emulators\ui-v1.11.6\client
+[debug] [2023-05-27T01:07:49.037Z] [unzip] deflating: C:\Users\halom\.cache\firebase\emulators\ui-v1.11.6\client\browserconfig.xml
+[debug] [2023-05-27T01:07:49.038Z] [unzip] Entry: client/robots.txt (compressed_size=26 bytes, uncompressed_size=26 bytes)
+[debug] [2023-05-27T01:07:49.038Z] [unzip] Processing entry: client\robots.txt
+[debug] [2023-05-27T01:07:49.038Z] [unzip] else mkdir: C:\Users\halom\.cache\firebase\emulators\ui-v1.11.6\client
+[debug] [2023-05-27T01:07:49.038Z] [unzip] Writing file: C:\Users\halom\.cache\firebase\emulators\ui-v1.11.6\client\robots.txt
+[debug] [2023-05-27T01:07:49.040Z] [unzip] Entry: client/index.html (compressed_size=1363 bytes, uncompressed_size=3064 bytes)
+[debug] [2023-05-27T01:07:49.040Z] [unzip] Processing entry: client\index.html
+[debug] [2023-05-27T01:07:49.040Z] [unzip] else mkdir: C:\Users\halom\.cache\firebase\emulators\ui-v1.11.6\client
+[debug] [2023-05-27T01:07:49.040Z] [unzip] deflating: C:\Users\halom\.cache\firebase\emulators\ui-v1.11.6\client\index.html
+[debug] [2023-05-27T01:07:49.042Z] [unzip] Entry: client/favicon-16x16.png (compressed_size=757 bytes, uncompressed_size=777 bytes)
+[debug] [2023-05-27T01:07:49.042Z] [unzip] Processing entry: client\favicon-16x16.png
+[debug] [2023-05-27T01:07:49.042Z] [unzip] else mkdir: C:\Users\halom\.cache\firebase\emulators\ui-v1.11.6\client
+[debug] [2023-05-27T01:07:49.042Z] [unzip] deflating: C:\Users\halom\.cache\firebase\emulators\ui-v1.11.6\client\favicon-16x16.png
+[debug] [2023-05-27T01:07:49.044Z] [unzip] Entry: client/manifest.json (compressed_size=246 bytes, uncompressed_size=551 bytes)
+[debug] [2023-05-27T01:07:49.044Z] [unzip] Processing entry: client\manifest.json
+[debug] [2023-05-27T01:07:49.044Z] [unzip] else mkdir: C:\Users\halom\.cache\firebase\emulators\ui-v1.11.6\client
+[debug] [2023-05-27T01:07:49.045Z] [unzip] deflating: C:\Users\halom\.cache\firebase\emulators\ui-v1.11.6\client\manifest.json
+[debug] [2023-05-27T01:07:49.046Z] [unzip] Entry: client/favicon-32x32.png (compressed_size=1175 bytes, uncompressed_size=1175 bytes)
+[debug] [2023-05-27T01:07:49.046Z] [unzip] Processing entry: client\favicon-32x32.png
+[debug] [2023-05-27T01:07:49.046Z] [unzip] else mkdir: C:\Users\halom\.cache\firebase\emulators\ui-v1.11.6\client
+[debug] [2023-05-27T01:07:49.047Z] [unzip] Writing file: C:\Users\halom\.cache\firebase\emulators\ui-v1.11.6\client\favicon-32x32.png
+[debug] [2023-05-27T01:07:49.048Z] [unzip] Entry: client/android-chrome-192x192.png (compressed_size=7602 bytes, uncompressed_size=7834 bytes)
+[debug] [2023-05-27T01:07:49.048Z] [unzip] Processing entry: client\android-chrome-192x192.png
+[debug] [2023-05-27T01:07:49.048Z] [unzip] else mkdir: C:\Users\halom\.cache\firebase\emulators\ui-v1.11.6\client
+[debug] [2023-05-27T01:07:49.048Z] [unzip] deflating: C:\Users\halom\.cache\firebase\emulators\ui-v1.11.6\client\android-chrome-192x192.png
+[debug] [2023-05-27T01:07:49.050Z] [unzip] Entry: server/ (compressed_size=0 bytes, uncompressed_size=0 bytes)
+[debug] [2023-05-27T01:07:49.050Z] [unzip] Processing entry: server\
+[debug] [2023-05-27T01:07:49.050Z] [unzip] mkdir: C:\Users\halom\.cache\firebase\emulators\ui-v1.11.6\server\
+[debug] [2023-05-27T01:07:49.051Z] [unzip] Entry: server/server.js (compressed_size=343746 bytes, uncompressed_size=1346374 bytes)
+[debug] [2023-05-27T01:07:49.051Z] [unzip] Processing entry: server\server.js
+[debug] [2023-05-27T01:07:49.051Z] [unzip] else mkdir: C:\Users\halom\.cache\firebase\emulators\ui-v1.11.6\server
+[debug] [2023-05-27T01:07:49.051Z] [unzip] deflating: C:\Users\halom\.cache\firebase\emulators\ui-v1.11.6\server\server.js
+[debug] [2023-05-27T01:07:49.058Z] [unzip] Entry: server/server.js.map (compressed_size=289157 bytes, uncompressed_size=1325651 bytes)
+[debug] [2023-05-27T01:07:49.058Z] [unzip] Processing entry: server\server.js.map
+[debug] [2023-05-27T01:07:49.058Z] [unzip] else mkdir: C:\Users\halom\.cache\firebase\emulators\ui-v1.11.6\server
+[debug] [2023-05-27T01:07:49.059Z] [unzip] deflating: C:\Users\halom\.cache\firebase\emulators\ui-v1.11.6\server\server.js.map
+[debug] [2023-05-27T01:07:49.065Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"ui"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2023-05-27T01:07:49.065Z] Ignoring unsupported arg: port {"metadata":{"emulator":{"name":"ui"},"message":"Ignoring unsupported arg: port"}}
+[debug] [2023-05-27T01:07:49.065Z] Starting Emulator UI with command {"binary":"node","args":["C:\\Users\\halom\\.cache\\firebase\\emulators\\ui-v1.11.6\\server\\server.js"],"optionalArgs":[],"joinArgs":false} {"metadata":{"emulator":{"name":"ui"},"message":"Starting Emulator UI with command {\"binary\":\"node\",\"args\":[\"C:\\\\Users\\\\halom\\\\.cache\\\\firebase\\\\emulators\\\\ui-v1.11.6\\\\server\\\\server.js\"],\"optionalArgs\":[],\"joinArgs\":false}"}}
+[info] i  ui: Emulator UI logging to ui-debug.log {"metadata":{"emulator":{"name":"ui"},"message":"Emulator UI logging to \u001b[1mui-debug.log\u001b[22m"}}
+[info] 
+┌─────────────────────────────────────────────────────────────┐
+│ ✔  All emulators ready! It is now safe to connect your app. │
+│ i  View Emulator UI at http://127.0.0.1:4000/               │
+└─────────────────────────────────────────────────────────────┘
+
+┌───────────┬────────────────┬─────────────────────────────────┐
+│ Emulator  │ Host:Port      │ View in Emulator UI             │
+├───────────┼────────────────┼─────────────────────────────────┤
+│ Firestore │ 127.0.0.1:8080 │ http://127.0.0.1:4000/firestore │
+├───────────┼────────────────┼─────────────────────────────────┤
+│ Hosting   │ 127.0.0.1:5000 │ n/a                             │
+└───────────┴────────────────┴─────────────────────────────────┘
+  Emulator Hub running at 127.0.0.1:4400
+  Other reserved ports: 4500, 9150
+
+Issues? Report them at https://github.com/firebase/firebase-tools/issues and attach the *-debug.log files.
+ 
+[debug] [2023-05-27T01:07:49.339Z] Web / API server started at 127.0.0.1:4000
+Web / API server started at ::1:4000
+ {"metadata":{"emulator":{"name":"ui"},"message":"Web / API server started at 127.0.0.1:4000\nWeb / API server started at ::1:4000\n"}}

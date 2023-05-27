@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 // Librerias necesarias para usar react-bootstrap
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -24,11 +24,15 @@ import {
 
 // Importacion de herramientas de bootstrap
 import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
+
+
 function App() {
+
   const logo = logoBase64;
 
-  // Estados para el inicio de sesion
+  // Estado para el inicio de sesion
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
 
   const handleLogin = () => {
     setIsLoggedIn(true);
@@ -60,8 +64,7 @@ function App() {
                   Películas
                 </Nav.Link>
                 {isLoggedIn ? (
-                  <NavDropdown title="Mi cuenta" id="basic-nav-dropdown" className='border'>
-                    <NavDropdown.Item as={Link} to="/configuracion">Configuración</NavDropdown.Item>
+                  <NavDropdown title='Mi cuenta' id="basic-nav-dropdown" className='border'>                    <NavDropdown.Item as={Link} to="/configuracion">Configuración</NavDropdown.Item>
                     <NavDropdown.Item as={Link} to="/notificaciones">Notificaciones</NavDropdown.Item>
                     <NavDropdown.Item as={Link} to="/lista-seguimiento">Lista de Seguimiento</NavDropdown.Item>
                     <NavDropdown.Item as={Link} to="/peliculas-ver">Películas por ver</NavDropdown.Item>
@@ -90,7 +93,7 @@ function App() {
           <Route exact path="/peliculas" element={<PaginaPeliculas />} />
           <Route path="/resultados" element={<Resultados />} />
           <Route path="/registro" element={<PaginaPeliculas />} />
-            
+
         </Routes>
 
       </div>

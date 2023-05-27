@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
+
+// firebase
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import firebaseConfig from './firebaseConfig';
+
 import { Modal, Button, Nav, Alert, Form, InputGroup } from 'react-bootstrap';
 import { BsEye, BsEyeSlash } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
@@ -71,7 +74,7 @@ const VentanaLogin = ({ onLogin, onLogout, onClose }) => {
 
   return (
     <div>
-      <Nav.Link onClick={() => setShowModal(true)} className="btn btn-danger">Mi cuenta</Nav.Link>
+      <Nav.Link onClick={() => setShowModal(true)} className="btn btn-danger">Login</Nav.Link>
       <Modal show={showModal} onHide={handleCloseModal}>
         <Modal.Header closeButton className='bg-dark text-white'>
           <Modal.Title>Iniciar sesión</Modal.Title>
