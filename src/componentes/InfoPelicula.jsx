@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Modal, Button, Form, Row, Col } from 'react-bootstrap';
 import axios from 'axios';
 
+// Componentes
+import AñadirListaSeguimiento from './AñadirListaSeguimiento';
+
 const InfoPelicula = ({ pelicula, onClose }) => {
   const [resena, setResena] = useState('');
   const [generos, setGeneros] = useState([]);
@@ -80,7 +83,7 @@ const InfoPelicula = ({ pelicula, onClose }) => {
         <Button variant="secondary" onClick={onClose}>
           Salir
         </Button>
-        <Button variant="primary">Agregar a Lista de seguimiento</Button>
+        <AñadirListaSeguimiento idPelicula={pelicula.id} />
         <Button variant="primary">Dar reseña</Button>
         <div className="rating-stars">
           <label>Valoración:</label>

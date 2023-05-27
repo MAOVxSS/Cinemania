@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom';
 
 firebase.initializeApp(firebaseConfig);
 
-const VentanaLogin = ({ onLogin, onLogout, onClose }) => {
+const VentanaLogin = ({ onLogin, onLogout}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');

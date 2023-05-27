@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 // Librerias necesarias para usar react-bootstrap
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -13,6 +13,7 @@ import PaginaPeliculas from './componentes/PaginaPeliculas';
 import BusquedaBarra from './componentes/BusquedaBarra';
 import Resultados from './componentes/ResultadosBusqueda';
 import VentanaLogin from './componentes/VentanaLogin';
+import ListaSeguimiento from './componentes/ListaSeguimiento';
 
 // Librerias para la creacion de rutas
 import {
@@ -24,6 +25,8 @@ import {
 
 // Importacion de herramientas de bootstrap
 import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
+import GuardarCaracteres from './componentes/GuardarCaracteres';
+
 
 
 function App() {
@@ -68,11 +71,12 @@ function App() {
                     <NavDropdown.Item as={Link} to="/notificaciones">Notificaciones</NavDropdown.Item>
                     <NavDropdown.Item as={Link} to="/lista-seguimiento">Lista de Seguimiento</NavDropdown.Item>
                     <NavDropdown.Item as={Link} to="/peliculas-ver">Películas por ver</NavDropdown.Item>
+                    <NavDropdown.Item as={Link} to="/guardar-caracteres">Guardar caracteres</NavDropdown.Item>
                     <NavDropdown.Item onClick={handleLogout}>Cerrar sesión</NavDropdown.Item>
                   </NavDropdown>
                 ) : (
                   <Nav.Link>
-                    <VentanaLogin onLogin={handleLogin} />
+                    <VentanaLogin onLogin={handleLogin} onLogout={handleLogout}/>
                   </Nav.Link>
                 )}
                 <Nav.Link as={Link} to="/comunidad">
@@ -93,7 +97,10 @@ function App() {
           <Route exact path="/peliculas" element={<PaginaPeliculas />} />
           <Route path="/resultados" element={<Resultados />} />
           <Route path="/registro" element={<PaginaPeliculas />} />
-
+          <Route path="/lista-seguimiento" element={<ListaSeguimiento />} />
+          {isLoggedIn && (
+            <Route path="/guardar-caracteres" element={<GuardarCaracteres />} />
+          )}
         </Routes>
 
       </div>
