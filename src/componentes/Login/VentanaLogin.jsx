@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 // firebase
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
-import firebaseConfig from './firebaseConfig';
+import firebaseConfig from '../firebaseConfig/firebaseConfig';
 
 import { Modal, Button, Nav, Alert, Form, InputGroup } from 'react-bootstrap';
 import { BsEye, BsEyeSlash } from 'react-icons/bs';
@@ -86,7 +86,6 @@ const VentanaLogin = ({ onLogin, onLogout}) => {
                 <Form.Label>Email:</Form.Label>
                 <Form.Control type="email" value={email} onChange={handleEmailChange} />
               </Form.Group>
-
               <Form.Group controlId="formPassword">
                 <Form.Label>Contraseña:</Form.Label>
                 <InputGroup>

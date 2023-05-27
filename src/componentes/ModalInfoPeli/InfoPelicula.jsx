@@ -3,7 +3,8 @@ import { Modal, Button, Form, Row, Col } from 'react-bootstrap';
 import axios from 'axios';
 
 // Componentes
-import AñadirListaSeguimiento from './AñadirListaSeguimiento';
+import AñadirListaSeguimiento from '../ListaSeguimiento/AñadirListaSeguimiento';
+import AñadirPorMirar from '../PorVer/AñadirPorMirar';
 
 const InfoPelicula = ({ pelicula, onClose }) => {
   const [resena, setResena] = useState('');
@@ -80,11 +81,16 @@ const InfoPelicula = ({ pelicula, onClose }) => {
         </Form.Group>
       </Modal.Body>
       <Modal.Footer className="bg-dark text-white">
-        <Button variant="secondary" onClick={onClose}>
+        <Button variant="secondary" onClick={onClose} className='me-2'>
           Salir
         </Button>
+        {/* Boton de la lista de seguimiento o favoritos */}
         <AñadirListaSeguimiento idPelicula={pelicula.id} />
-        <Button variant="primary">Dar reseña</Button>
+        {/* Boton para lista de peliculas POR VER */}
+        <AñadirPorMirar idPelicula={pelicula.id} />
+        <Button variant="success" className='me-2'>
+          Dar reseña
+        </Button>
         <div className="rating-stars">
           <label>Valoración:</label>
           {/* Calificación */}

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
-import firebaseConfig from './firebaseConfig';
+import firebaseConfig from '../../firebaseConfig/firebaseConfig';
 
 // Inicializa Firebase
 firebase.initializeApp(firebaseConfig);

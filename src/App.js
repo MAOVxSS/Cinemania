@@ -6,14 +6,16 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
 // Importacion de componentes
-import { logoBase64 } from './componentes/ImagenBase64';
-import { Inicio } from './componentes/Inicio'
-import Banner from './componentes/Banner';
-import PaginaPeliculas from './componentes/PaginaPeliculas';
-import BusquedaBarra from './componentes/BusquedaBarra';
-import Resultados from './componentes/ResultadosBusqueda';
-import VentanaLogin from './componentes/VentanaLogin';
-import ListaSeguimiento from './componentes/ListaSeguimiento';
+import { logoBase64 } from './componentes/Banner/ImagenBase64';
+import { Inicio } from './componentes/PaginaPrincipal/Inicio'
+import Banner from './componentes/Banner/Banner';
+import PaginaPeliculas from './componentes/FiltrosBusqueda/PaginaPeliculas';
+import BusquedaBarra from './componentes/BarraBusqueda/BusquedaBarra';
+import Resultados from './componentes/BarraBusqueda/ResultadosBusqueda';
+import VentanaLogin from './componentes/Login/VentanaLogin';
+import ListaSeguimiento from './componentes/ListaSeguimiento/ListaSeguimiento';
+import PorMirar from './componentes/PorVer/PorMirar';
+
 
 // Librerias para la creacion de rutas
 import {
@@ -25,7 +27,8 @@ import {
 
 // Importacion de herramientas de bootstrap
 import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
-import GuardarCaracteres from './componentes/GuardarCaracteres';
+import RegistroUsuario from './componentes/Login/RegistroUsuario';
+
 
 
 
@@ -67,16 +70,17 @@ function App() {
                   Películas
                 </Nav.Link>
                 {isLoggedIn ? (
-                  <NavDropdown title='Mi cuenta' id="basic-nav-dropdown" className='border'>                    <NavDropdown.Item as={Link} to="/configuracion">Configuración</NavDropdown.Item>
+                  <NavDropdown title='Mi cuenta' id="basic-nav-dropdown" className='border'>
+                    <NavDropdown.Item as={Link} to="/configuracion">Configuración</NavDropdown.Item>
                     <NavDropdown.Item as={Link} to="/notificaciones">Notificaciones</NavDropdown.Item>
-                    <NavDropdown.Item as={Link} to="/lista-seguimiento">Lista de Seguimiento</NavDropdown.Item>
+                    <NavDropdown.Item as={Link} to="/lista-seguimiento">Favoritos</NavDropdown.Item>
                     <NavDropdown.Item as={Link} to="/peliculas-ver">Películas por ver</NavDropdown.Item>
                     <NavDropdown.Item as={Link} to="/guardar-caracteres">Guardar caracteres</NavDropdown.Item>
                     <NavDropdown.Item onClick={handleLogout}>Cerrar sesión</NavDropdown.Item>
                   </NavDropdown>
                 ) : (
                   <Nav.Link>
-                    <VentanaLogin onLogin={handleLogin} onLogout={handleLogout}/>
+                    <VentanaLogin onLogin={handleLogin} onLogout={handleLogout} />
                   </Nav.Link>
                 )}
                 <Nav.Link as={Link} to="/comunidad">
@@ -96,11 +100,12 @@ function App() {
           <Route exact path="/" element={<Inicio />} />
           <Route exact path="/peliculas" element={<PaginaPeliculas />} />
           <Route path="/resultados" element={<Resultados />} />
-          <Route path="/registro" element={<PaginaPeliculas />} />
+          <Route path="/registro" element={<RegistroUsuario />} />
           <Route path="/lista-seguimiento" element={<ListaSeguimiento />} />
-          {isLoggedIn && (
+          <Route path="/peliculas-ver" element={<PorMirar />} />
+          {/* {isLoggedIn && (
             <Route path="/guardar-caracteres" element={<GuardarCaracteres />} />
-          )}
+          )} */}
         </Routes>
 
       </div>

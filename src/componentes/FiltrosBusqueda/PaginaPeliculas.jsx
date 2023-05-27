@@ -9,7 +9,7 @@ import axios from 'axios';
 
 import { FaArrowRight } from 'react-icons/fa';
 
-import InfoPelicula from './InfoPelicula';
+import InfoPelicula from '../ModalInfoPeli/InfoPelicula';
 
 const PaginaPeliculas = () => {
   const API_KEY = '7e7a5dfc44d92090d322e49610a9e8ba';

@@ -5,7 +5,7 @@ import axios from 'axios';
 import { FaExclamationCircle } from 'react-icons/fa';
 
 // Componentes
-import InfoPelicula from './InfoPelicula';
+import InfoPelicula from '../ModalInfoPeli/InfoPelicula';
 
 const ResultadosBusqueda = () => {
   const [resultados, setResultados] = useState([]);

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Card, Container, Row, Col, Pagination } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 // Componentes para acceso a la API y mostrar datos
-import InfoPelicula from './InfoPelicula';
+import InfoPelicula from '../ModalInfoPeli/InfoPelicula';
 // Para solicitud HTTP
 import axios from 'axios';
 
