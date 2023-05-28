@@ -1,10 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, Button, Form, Row, Col } from 'react-bootstrap';
 import axios from 'axios';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/firestore';
+import firebaseConfig from '../firebaseConfig/firebaseConfig';
 
 // Componentes
 import AñadirListaSeguimiento from '../ListaSeguimiento/AñadirListaSeguimiento';
 import AñadirPorMirar from '../PorVer/AñadirPorMirar';
+import GuardarReseña from '../Reseña/GuardarReseña';
+
+// Inicializa Firebase
+firebase.initializeApp(firebaseConfig);
 
 const InfoPelicula = ({ pelicula, onClose }) => {
   const [resena, setResena] = useState('');
@@ -14,9 +21,19 @@ const InfoPelicula = ({ pelicula, onClose }) => {
     setResena(e.target.value);
   };
 
+  const limpiarResena = () => {
+    setResena('');
+  };
+
   useEffect(() => {
     obtenerGeneros();
   }, []);
+
+  useEffect(() => {
+    if (pelicula) {
+      setResena('');
+    }
+  }, [pelicula]);
 
   const obtenerGeneros = async () => {
     const API_KEY = '7e7a5dfc44d92090d322e49610a9e8ba';
@@ -38,10 +55,46 @@ const InfoPelicula = ({ pelicula, onClose }) => {
     return nombresGeneros.join(', ');
   };
 
+  const guardarHistorial = async (peliculaId) => {
+    try {
+      const user = firebase.auth().currentUser;
+      if (user) {
+        const uid = user.uid;
+        const db = firebase.firestore();
+        const historialRef = db.collection(uid).doc('historial');
+        const historial = await historialRef.get();
+
+        if (historial.exists) {
+          // El documento 'historial' ya existe, actualizamos el array de peliculas
+          const peliculas = historial.data().peliculas || [];
+          peliculas.push(peliculaId);
+          await historialRef.update({ peliculas });
+        } else {
+          // El documento 'historial' no existe, lo creamos con el primer id de pelicula
+          await historialRef.set({
+            peliculas: [peliculaId],
+            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+          });
+        }
+
+        console.log('Película guardada en el historial:', peliculaId);
+      } else {
+        console.error('Usuario no autenticado.');
+      }
+    } catch (error) {
+      console.error('Error al guardar el historial:', error);
+    }
+  };
+
+  useEffect(() => {
+    if (pelicula) {
+      guardarHistorial(pelicula.id);
+    }
+  }, [pelicula]);
+
   if (!pelicula) {
     return null;
   }
-
   return (
     <Modal show={!!pelicula} onHide={onClose}>
       <Modal.Header closeButton className="bg-dark text-white">
@@ -81,16 +134,15 @@ const InfoPelicula = ({ pelicula, onClose }) => {
         </Form.Group>
       </Modal.Body>
       <Modal.Footer className="bg-dark text-white">
-        <Button variant="secondary" onClick={onClose} className='me-2'>
+        <Button variant="secondary" onClick={onClose} className="me-2">
           Salir
         </Button>
         {/* Boton de la lista de seguimiento o favoritos */}
         <AñadirListaSeguimiento idPelicula={pelicula.id} />
         {/* Boton para lista de peliculas POR VER */}
         <AñadirPorMirar idPelicula={pelicula.id} />
-        <Button variant="success" className='me-2'>
-          Dar reseña
-        </Button>
+        {/* Guardar reseña */}
+        <GuardarReseña peliculaId={pelicula.id} reseña={resena} onGuardar={limpiarResena} />
         <div className="rating-stars">
           <label>Valoración:</label>
           {/* Calificación */}
