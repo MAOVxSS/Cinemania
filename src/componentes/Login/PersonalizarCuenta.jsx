@@ -31,25 +31,32 @@ const PersonalizarCuenta = () => {
   const obtenerDatosUsuario = () => {
     const user = firebase.auth().currentUser;
     const db = firebase.firestore();
-
+  
     if (user) {
-      const usuariosCollection = db.collection('usuarios');
-      const userInfoDocument = usuariosCollection.doc(user.uid).collection('info-usuario').doc('datos');
-
+      const userInfoCollection = db.collection('info-usuario');
+      const userInfoDocument = userInfoCollection.doc('datos');
+  
       userInfoDocument
         .get()
         .then((snapshot) => {
           if (snapshot.exists) {
             const userData = snapshot.data();
-            setNombreCompleto(userData.nombreCompleto || '');
-            setApodo(userData.apodo || '');
-            setEdad(userData.edad || '');
-            setSexo(userData.sexo || '');
-            setPais(userData.pais || '');
-            setDescripcion(userData.descripcion || '');
-            setSelectedImage(userData.imagen || '');
+            const datos = userData.datos || [];
+            const datosUsuario = datos.find((dato) => dato.uid === user.uid);
+  
+            if (datosUsuario) {
+              setNombreCompleto(datosUsuario.nombreCompleto || '');
+              setApodo(datosUsuario.apodo || '');
+              setEdad(datosUsuario.edad || '');
+              setSexo(datosUsuario.sexo || '');
+              setPais(datosUsuario.pais || '');
+              setDescripcion(datosUsuario.descripcion || '');
+              setSelectedImage(datosUsuario.imagen || '');
+            } else {
+              console.log('No se encontraron datos del usuario');
+            }
           } else {
-            console.log('No se encontraron datos del usuario');
+            console.log('No se encontró el documento "datos"');
           }
         })
         .catch((error) => {
@@ -58,46 +65,82 @@ const PersonalizarCuenta = () => {
         });
     }
   };
+  
 
   const handleGuardarDatos = (e) => {
     e.preventDefault();
-
+  
     if (!nombreCompleto || !apodo || !edad || !sexo || !pais) {
       setError('Por favor, complete todos los campos.');
       return;
     }
-
+  
     const user = firebase.auth().currentUser;
     const db = firebase.firestore();
-
+  
     if (user) {
-      const usuariosCollection = db.collection('usuarios');
-      const userInfoDocument = usuariosCollection.doc(user.uid).collection('info-usuario').doc('datos');
-
-      const userInfo = {
-        nombreCompleto,
-        apodo,
-        edad,
-        sexo,
-        pais,
-        descripcion,
-        imagen: selectedImage
-      };
-
+      const userInfoCollection = db.collection('info-usuario');
+      const userInfoDocument = userInfoCollection.doc('datos');
+  
       userInfoDocument
-        .set(userInfo)
-        .then(() => {
-          setExito(true);
-          setTimeout(() => {
-            navigate('/');
-          }, 2000);
+        .get()
+        .then((snapshot) => {
+          if (snapshot.exists) {
+            const userData = snapshot.data();
+            const datos = userData.datos || [];
+  
+            const datosUsuarioIndex = datos.findIndex((dato) => dato.uid === user.uid);
+  
+            if (datosUsuarioIndex !== -1) {
+              // Usuario ya tiene datos guardados, actualizarlos
+              datos[datosUsuarioIndex] = {
+                nombreCompleto,
+                apodo,
+                edad,
+                sexo,
+                pais,
+                descripcion,
+                imagen: selectedImage,
+                uid: user.uid
+              };
+            } else {
+              // Usuario no tiene datos guardados, agregar nuevos
+              datos.push({
+                nombreCompleto,
+                apodo,
+                edad,
+                sexo,
+                pais,
+                descripcion,
+                imagen: selectedImage,
+                uid: user.uid
+              });
+            }
+  
+            userInfoDocument
+              .update({ datos })
+              .then(() => {
+                setExito(true);
+                setTimeout(() => {
+                  navigate('/');
+                }, 2000);
+              })
+              .catch((error) => {
+                console.error('Error al guardar los datos del usuario:', error);
+                setError('Se produjo un error al guardar los datos.');
+              });
+          } else {
+            console.log('No se encontró el documento "datos"');
+          }
         })
         .catch((error) => {
-          console.error('Error al guardar los datos del usuario:', error);
-          setError('Se produjo un error al guardar los datos.');
+          console.error('Error al obtener los datos del usuario:', error);
+          setError('Se produjo un error al obtener los datos.');
         });
     }
   };
+  
+  
 
   const handleCloseModal = () => {
     setError('');
@@ -216,7 +259,7 @@ const PersonalizarCuenta = () => {
           <Modal.Title>Seleccione una imagen</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <div className="d-flex flex-wrap justify-content-center">
+        <div className="d-flex flex-wrap justify-content-center">
             <div className="icono mx-2 my-2" onClick={() => handleSelectImage(imagen1Base64)}>
               <img src={`data:image/png;base64, ${imagen1Base64}`} alt="Icono 1" />
             </div>

@@ -22,12 +22,14 @@ const PorMirar = () => {
 
     if (user) {
       const db = firebase.firestore();
-      const userCollection = db.collection('usuarios').doc(user.uid).collection('por-mirar');
-      const listaPorVerDocument = userCollection.doc('datos');
+      const listaPorVerRef = db.collection('lista-mirar').doc('datos');
 
-      listaPorVerDocument.get().then((doc) => {
+      listaPorVerRef.get().then((doc) => {
         if (doc.exists) {
-          const peliculasIds = Object.keys(doc.data());
+          const lista = doc.data().lista || [];
+          const peliculasIds = lista
+            .filter((pelicula) => pelicula.uid === user.uid)
+            .map((pelicula) => pelicula.peliculaId);
           // Obtener películas según las IDs de la lista por ver
           obtenerPeliculas(peliculasIds);
         }
@@ -61,20 +63,28 @@ const PorMirar = () => {
 
     if (user) {
       const db = firebase.firestore();
-      const userCollection = db.collection('usuarios').doc(user.uid).collection('por-mirar');
-      const listaPorVerDocument = userCollection.doc('datos');
+      const listaPorVerRef = db.collection('lista-mirar').doc('datos');
 
-      listaPorVerDocument.update({
-        [id]: firebase.firestore.FieldValue.delete()
-      })
-        .then(() => {
-          console.log('Película eliminada de la lista por ver');
-          // Eliminar la película del estado
-          setPeliculas((prevPeliculas) => prevPeliculas.filter((pelicula) => pelicula.id !== id));
-        })
-        .catch((error) => {
-          console.error('Error al eliminar la película de la lista por ver:', error);
-        });
+      listaPorVerRef.get().then((doc) => {
+        if (doc.exists) {
+          const lista = doc.data().lista || [];
+          const nuevaLista = lista.filter((pelicula) => pelicula.peliculaId !== id);
+
+          listaPorVerRef.update({
+            lista: nuevaLista
+          })
+            .then(() => {
+              console.log('Películas eliminadas de la lista por ver');
+              // Eliminar la película del estado
+              setPeliculas((prevPeliculas) => prevPeliculas.filter((pelicula) => pelicula.id !== id));
+            })
+            .catch((error) => {
+              console.error('Error al eliminar la película de la lista por ver:', error);
+            });
+        }
+      }).catch((error) => {
+        console.error('Error al obtener la lista por ver:', error);
+      });
     }
   };
 
@@ -102,7 +112,7 @@ const PorMirar = () => {
   return (
     <Container className='text-white'>
       <div className='mw-320px text-align-center'>
-        <h1>Lista de películas por ver:</h1>
+        <h1>Películas por ver:</h1>
       </div>
       <Row>
         {peliculasPaginaActual.map((pelicula) => (

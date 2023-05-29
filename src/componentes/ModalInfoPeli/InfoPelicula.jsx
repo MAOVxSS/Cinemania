@@ -62,22 +62,29 @@ const InfoPelicula = ({ pelicula, onClose }) => {
       if (user) {
         const uid = user.uid;
         const db = firebase.firestore();
-        const historialRef = db.collection('usuarios').doc(uid).collection('historial').doc('datos');
+        const historialRef = db.collection('historial').doc('datos');
         const historial = await historialRef.get();
   
         if (historial.exists) {
-          // El documento 'datos' ya existe, actualizamos el array de películas
+          // El documento 'datos' ya existe, verificamos si la película ya está en el historial
           const peliculas = historial.data().peliculas || [];
-          peliculas.push(peliculaId);
-          await historialRef.update({ peliculas });
+          const peliculaExistente = peliculas.find((pelicula) => pelicula.peliculaId === peliculaId && pelicula.uid === uid);
+  
+          if (!peliculaExistente) {
+            // La película no está en el historial, la añadimos al array de películas
+            peliculas.push({ peliculaId, uid });
+            await historialRef.update({ peliculas });
+            console.log('Película guardada en el historial:', peliculaId);
+          } else {
+            console.log('La película ya existe en el historial:', peliculaId);
+          }
         } else {
           // El documento 'datos' no existe, lo creamos con el primer ID de película
           await historialRef.set({
-            peliculas: [peliculaId],
+            peliculas: [{ peliculaId, uid }],
           });
+          console.log('Película guardada en el historial:', peliculaId);
         }
-  
-        console.log('Película guardada en el historial:', peliculaId);
       } else {
         console.error('Usuario no autenticado.');
       }
@@ -85,7 +92,6 @@ const InfoPelicula = ({ pelicula, onClose }) => {
       console.error('Error al guardar el historial:', error);
     }
   };
-  
 
   useEffect(() => {
     if (pelicula) {

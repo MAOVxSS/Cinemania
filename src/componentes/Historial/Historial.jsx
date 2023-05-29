@@ -18,28 +18,43 @@ const Historial = () => {
 
     if (user) {
       const db = firebase.firestore();
-      const userCollection = db.collection('usuarios').doc(user.uid).collection('historial');
-      const historialDocument = userCollection.doc('datos');
+      const historialCollection = db.collection('historial');
+      const historialDocument = historialCollection.doc('datos');
 
-      historialDocument.get().then((doc) => {
-        if (doc.exists) {
-          const peliculasIds = doc.data().peliculas || [];
-          obtenerPeliculas(peliculasIds);
-        }
-      }).catch((error) => {
-        console.error('Error al obtener el historial:', error);
-      });
+      historialDocument
+        .get()
+        .then((doc) => {
+          if (doc.exists) {
+            const peliculasData = doc.data().peliculas || [];
+            const peliculasUsuario = peliculasData.filter((pelicula) => pelicula.uid === user.uid);
+            const peliculasUnicas = obtenerPeliculasUnicas(peliculasUsuario);
+            obtenerPeliculas(peliculasUnicas);
+          }
+        })
+        .catch((error) => {
+          console.error('Error al obtener el historial:', error);
+        });
     }
   }, []);
 
-  const obtenerPeliculas = async (ids) => {
+  const obtenerPeliculasUnicas = (peliculasUsuario) => {
+    const peliculasIds = peliculasUsuario.map((pelicula) => pelicula.peliculaId);
+    const peliculasUnicas = [];
+
+    peliculasIds.forEach((peliculaId) => {
+      if (!peliculasUnicas.includes(peliculaId)) {
+        peliculasUnicas.push(peliculaId);
+      }
+    });
+
+    return peliculasUnicas;
+  };
+
+  const obtenerPeliculas = async (peliculasUnicas) => {
     const API_KEY = '7e7a5dfc44d92090d322e49610a9e8ba';
 
-    // Filtrar IDs duplicadas
-    const uniqueIds = [...new Set(ids)];
-
-    const requests = uniqueIds.map((id) =>
-      axios.get(`https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}&language=es`)
+    const requests = peliculasUnicas.map((peliculaId) =>
+      axios.get(`https://api.themoviedb.org/3/movie/${peliculaId}?api_key=${API_KEY}&language=es`)
     );
 
     try {
@@ -78,16 +93,31 @@ const Historial = () => {
 
     if (user) {
       const db = firebase.firestore();
-      const userCollection = db.collection('usuarios').doc(user.uid).collection('historial');
-      const historialDocument = userCollection.doc('datos');
+      const historialCollection = db.collection('historial');
+      const historialDocument = historialCollection.doc('datos');
 
-      historialDocument.delete()
-        .then(() => {
-          console.log('Historial borrado con éxito');
-          setPeliculas([]);
+      historialDocument
+        .get()
+        .then((doc) => {
+          if (doc.exists) {
+            const peliculasData = doc.data().peliculas || [];
+            const nuevosDatos = peliculasData.filter((pelicula) => pelicula.uid !== user.uid);
+
+            historialDocument
+              .update({
+                peliculas: nuevosDatos
+              })
+              .then(() => {
+                console.log('Historial borrado con éxito');
+                setPeliculas([]);
+              })
+              .catch((error) => {
+                console.error('Error al borrar el historial:', error);
+              });
+          }
         })
         .catch((error) => {
-          console.error('Error al borrar el historial:', error);
+          console.error('Error al obtener el historial:', error);
         });
     }
   };

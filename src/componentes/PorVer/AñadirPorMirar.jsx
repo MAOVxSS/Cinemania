@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import firebaseConfig from '../firebaseConfig/firebaseConfig';
@@ -9,48 +9,40 @@ import { Button } from 'react-bootstrap';
 firebase.initializeApp(firebaseConfig);
 
 const AñadirPorMirar = ({ idPelicula }) => {
-  useEffect(() => {
+  const handleAñadirPorMirar = () => {
     const user = firebase.auth().currentUser;
 
     if (user) {
       const db = firebase.firestore();
-      const userCollection = db.collection('usuarios').doc(user.uid).collection('por-mirar');
-      const listaPorVerDocument = userCollection.doc('datos');
+      const listaMirarDocument = db.collection('lista-mirar').doc('datos');
 
-      listaPorVerDocument.get().then((doc) => {
+      listaMirarDocument.get().then((doc) => {
         if (!doc.exists) {
-          // Crear la colección y el documento si el usuario es nuevo
-          listaPorVerDocument
-            .set({ [idPelicula]: true })
+          // Crear la colección y el documento si no existen
+          listaMirarDocument
+            .set({ lista: [{ uid: user.uid, peliculaId: idPelicula }] })
             .then(() => {
               console.log('Colección y documento creados');
             })
             .catch((error) => {
               console.error('Error al crear la colección y el documento:', error);
             });
+        } else {
+          // Agregar la película a la lista si el documento ya existe
+          listaMirarDocument
+            .update({
+              lista: firebase.firestore.FieldValue.arrayUnion({ uid: user.uid, peliculaId: idPelicula })
+            })
+            .then(() => {
+              console.log('Película agregada a la lista por ver');
+            })
+            .catch((error) => {
+              console.error('Error al agregar la película a la lista por ver:', error);
+            });
         }
       }).catch((error) => {
         console.error('Error al obtener el documento:', error);
       });
-    }
-  }, [idPelicula]);
-
-  const handleAñadirPorMirar = () => {
-    const user = firebase.auth().currentUser;
-
-    if (user) {
-      const db = firebase.firestore();
-      const userCollection = db.collection('usuarios').doc(user.uid).collection('por-mirar');
-      const listaPorVerDocument = userCollection.doc('datos');
-
-      listaPorVerDocument
-        .update({ [idPelicula]: true })
-        .then(() => {
-          console.log('Película agregada a la lista por ver');
-        })
-        .catch((error) => {
-          console.error('Error al agregar la película a la lista por ver:', error);
-        });
     }
   };
 

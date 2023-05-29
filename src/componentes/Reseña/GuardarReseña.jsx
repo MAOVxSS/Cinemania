@@ -11,23 +11,31 @@ const GuardarReseña = ({ peliculaId, reseña, onGuardar }) => {
   const guardarReseñaFirestore = async (peliculaId, reseña) => {
     try {
       const user = firebase.auth().currentUser;
+
       if (user) {
         const uid = user.uid;
         const db = firebase.firestore();
-        const usuarioCollection = db.collection('usuarios').doc(uid).collection('reseñas');
-        const reseñasDocument = usuarioCollection.doc('datos');
+        const reseñasCollection = db.collection('reseñas');
+        const datosDocument = await reseñasCollection.doc('datos').get();
 
-        // Obtener las reseñas existentes
-        const doc = await reseñasDocument.get();
-        const reseñas = doc.exists ? doc.data().reseñas : [];
+        if (!datosDocument.exists) {
+          console.log('El documento "datos" no existe en la colección "reseñas"');
+          return;
+        }
 
-        // Agregar la nueva reseña
-        reseñas.push({ peliculaId, reseña });
+        const reseñasData = datosDocument.data().reseñas || [];
+        const nuevaReseña = { uid, peliculaId, reseña };
 
-        // Guardar las reseñas actualizadas en Firestore
-        await reseñasDocument.set({ reseñas });
+        // Agregar la nueva reseña al arreglo existente
+        reseñasData.push(nuevaReseña);
 
-        console.log('Reseña guardada correctamente:', peliculaId, reseña);
+        // Actualizar el documento "datos" con las reseñas actualizadas
+        await reseñasCollection.doc('datos').update({ reseñas: reseñasData });
+
+        console.log('Reseña guardada correctamente:');
+        console.log('- Usuario:', uid);
+        console.log('- Película ID:', peliculaId);
+        console.log('- Reseña:', reseña);
         onGuardar();
       } else {
         console.error('Usuario no autenticado.');

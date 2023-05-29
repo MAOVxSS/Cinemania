@@ -14,37 +14,53 @@ const AñadirListaSeguimiento = ({ idPelicula }) => {
 
     if (user) {
       const db = firebase.firestore();
-      const userCollection = db.collection('usuarios').doc(user.uid).collection('lista-seguimiento');
-      const userDocument = userCollection.doc('datos');
+      const listaSeguimientoCollection = db.collection('lista-seguimiento');
+      const listaSeguimientoDocument = listaSeguimientoCollection.doc('datos');
 
-      userDocument.get().then((doc) => {
-        if (!doc.exists) {
-          // Crear la colección y el documento si el usuario es nuevo
-          userDocument.set({ [idPelicula]: true }).then(() => {
-            console.log('Colección y documento creados');
-          }).catch((error) => {
-            console.error('Error al crear la colección y el documento:', error);
-          });
-        }
-      }).catch((error) => {
-        console.error('Error al obtener el documento:', error);
-      });
+      listaSeguimientoDocument
+        .get()
+        .then((doc) => {
+          if (!doc.exists) {
+            // Crear el documento y la matriz si no existe
+            listaSeguimientoDocument
+              .set({
+                lista: []
+              })
+              .then(() => {
+                console.log('Documento y matriz creados');
+              })
+              .catch((error) => {
+                console.error('Error al crear el documento y la matriz:', error);
+              });
+          }
+        })
+        .catch((error) => {
+          console.error('Error al obtener el documento:', error);
+        });
     }
-  }, [idPelicula]);
+  }, []);
 
   const handleAñadirListaSeguimiento = () => {
     const user = firebase.auth().currentUser;
 
     if (user) {
       const db = firebase.firestore();
-      const userCollection = db.collection('usuarios').doc(user.uid).collection('lista-seguimiento');
-      const listaSeguimientoDocument = userCollection.doc('datos');
+      const listaSeguimientoCollection = db.collection('lista-seguimiento');
+      const listaSeguimientoDocument = listaSeguimientoCollection.doc('datos');
 
-      listaSeguimientoDocument.update({ [idPelicula]: true }).then(() => {
-        console.log('Película agregada a la lista de seguimiento');
-      }).catch((error) => {
-        console.error('Error al agregar la película a la lista de seguimiento:', error);
-      });
+      listaSeguimientoDocument
+        .update({
+          lista: firebase.firestore.FieldValue.arrayUnion({
+            uid: user.uid,
+            peliculaId: idPelicula
+          })
+        })
+        .then(() => {
+          console.log('Película agregada a la lista de seguimiento');
+        })
+        .catch((error) => {
+          console.error('Error al agregar la película a la lista de seguimiento:', error);
+        });
     }
   };
 

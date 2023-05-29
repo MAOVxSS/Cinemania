@@ -22,18 +22,25 @@ const ListaSeguimiento = () => {
 
     if (user) {
       const db = firebase.firestore();
-      const userCollection = db.collection('usuarios').doc(user.uid).collection('lista-seguimiento');
-      const listaSeguimientoDocument = userCollection.doc('datos');
+      const listaSeguimientoCollection = db.collection('lista-seguimiento');
+      const listaSeguimientoDocument = listaSeguimientoCollection.doc('datos');
 
-      listaSeguimientoDocument.get().then((doc) => {
-        if (doc.exists) {
-          const peliculasIds = Object.keys(doc.data());
-          // Obtener películas según las IDs de la lista de seguimiento
-          obtenerPeliculas(peliculasIds);
-        }
-      }).catch((error) => {
-        console.error('Error al obtener la lista de seguimiento:', error);
-      });
+      listaSeguimientoDocument
+        .get()
+        .then((doc) => {
+          if (doc.exists) {
+            const lista = doc.data().lista;
+            // Filtrar las películas según el uid del usuario actual
+            const peliculasFiltradas = lista.filter((item) => item.uid === user.uid);
+            // Obtener las IDs de las películas
+            const peliculasIds = peliculasFiltradas.map((item) => item.peliculaId);
+            // Obtener películas según las IDs de la lista de seguimiento
+            obtenerPeliculas(peliculasIds);
+          }
+        })
+        .catch((error) => {
+          console.error('Error al obtener la lista de seguimiento:', error);
+        });
     }
   }, []);
 
@@ -61,12 +68,16 @@ const ListaSeguimiento = () => {
 
     if (user) {
       const db = firebase.firestore();
-      const userCollection = db.collection('usuarios').doc(user.uid).collection('lista-seguimiento');
-      const listaSeguimientoDocument = userCollection.doc('datos');
+      const listaSeguimientoCollection = db.collection('lista-seguimiento');
+      const listaSeguimientoDocument = listaSeguimientoCollection.doc('datos');
 
-      listaSeguimientoDocument.update({
-        [id]: firebase.firestore.FieldValue.delete()
-      })
+      listaSeguimientoDocument
+        .update({
+          lista: firebase.firestore.FieldValue.arrayRemove({
+            uid: user.uid,
+            peliculaId: id
+          })
+        })
         .then(() => {
           console.log('Película eliminada de la lista de seguimiento');
           // Eliminar la película del estado
