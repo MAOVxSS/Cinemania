@@ -17,11 +17,11 @@ const Historial = () => {
     const user = firebase.auth().currentUser;
 
     if (user) {
-      const uid = user.uid;
       const db = firebase.firestore();
-      const historialRef = db.collection(uid).doc('historial');
+      const userCollection = db.collection('usuarios').doc(user.uid).collection('historial');
+      const historialDocument = userCollection.doc('datos');
 
-      historialRef.get().then((doc) => {
+      historialDocument.get().then((doc) => {
         if (doc.exists) {
           const peliculasIds = doc.data().peliculas || [];
           obtenerPeliculas(peliculasIds);
@@ -77,11 +77,11 @@ const Historial = () => {
     const user = firebase.auth().currentUser;
 
     if (user) {
-      const uid = user.uid;
       const db = firebase.firestore();
-      const historialRef = db.collection(uid).doc('historial');
+      const userCollection = db.collection('usuarios').doc(user.uid).collection('historial');
+      const historialDocument = userCollection.doc('datos');
 
-      historialRef.delete()
+      historialDocument.delete()
         .then(() => {
           console.log('Historial borrado con éxito');
           setPeliculas([]);

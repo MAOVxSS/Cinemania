@@ -9,6 +9,7 @@ import firebaseConfig from '../firebaseConfig/firebaseConfig';
 import AñadirListaSeguimiento from '../ListaSeguimiento/AñadirListaSeguimiento';
 import AñadirPorMirar from '../PorVer/AñadirPorMirar';
 import GuardarReseña from '../Reseña/GuardarReseña';
+import ReseñasPelicula from '../Reseña/ReseñasPelicula';
 
 // Inicializa Firebase
 firebase.initializeApp(firebaseConfig);
@@ -61,22 +62,21 @@ const InfoPelicula = ({ pelicula, onClose }) => {
       if (user) {
         const uid = user.uid;
         const db = firebase.firestore();
-        const historialRef = db.collection(uid).doc('historial');
+        const historialRef = db.collection('usuarios').doc(uid).collection('historial').doc('datos');
         const historial = await historialRef.get();
-
+  
         if (historial.exists) {
-          // El documento 'historial' ya existe, actualizamos el array de peliculas
+          // El documento 'datos' ya existe, actualizamos el array de películas
           const peliculas = historial.data().peliculas || [];
           peliculas.push(peliculaId);
           await historialRef.update({ peliculas });
         } else {
-          // El documento 'historial' no existe, lo creamos con el primer id de pelicula
+          // El documento 'datos' no existe, lo creamos con el primer ID de película
           await historialRef.set({
             peliculas: [peliculaId],
-            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
           });
         }
-
+  
         console.log('Película guardada en el historial:', peliculaId);
       } else {
         console.error('Usuario no autenticado.');
@@ -85,6 +85,7 @@ const InfoPelicula = ({ pelicula, onClose }) => {
       console.error('Error al guardar el historial:', error);
     }
   };
+  
 
   useEffect(() => {
     if (pelicula) {
@@ -146,6 +147,9 @@ const InfoPelicula = ({ pelicula, onClose }) => {
         <div className="rating-stars">
           <label>Valoración:</label>
           {/* Calificación */}
+        </div>
+        <div>
+          <ReseñasPelicula peliculaId={pelicula.id} />
         </div>
       </Modal.Footer>
     </Modal>

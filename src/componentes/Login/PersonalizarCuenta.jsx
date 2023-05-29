@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import firebaseConfig from '../firebaseConfig/firebaseConfig';
-import { Form, Button, Modal} from 'react-bootstrap';
+import { Form, Button, Modal } from 'react-bootstrap';
 
 import { icono_B64_1, icono_B64_2, icono_B64_3, icono_B64_4, icono_B64_5 } from '../Imagenes/IconosBase64';
 
@@ -33,8 +33,8 @@ const PersonalizarCuenta = () => {
     const db = firebase.firestore();
 
     if (user) {
-      const userCollection = db.collection(user.uid);
-      const userInfoDocument = userCollection.doc('info-usuario');
+      const usuariosCollection = db.collection('usuarios');
+      const userInfoDocument = usuariosCollection.doc(user.uid).collection('info-usuario').doc('datos');
 
       userInfoDocument
         .get()
@@ -71,8 +71,8 @@ const PersonalizarCuenta = () => {
     const db = firebase.firestore();
 
     if (user) {
-      const userCollection = db.collection(user.uid);
-      const userInfoDocument = userCollection.doc('info-usuario');
+      const usuariosCollection = db.collection('usuarios');
+      const userInfoDocument = usuariosCollection.doc(user.uid).collection('info-usuario').doc('datos');
 
       const userInfo = {
         nombreCompleto,

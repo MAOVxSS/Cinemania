@@ -22,8 +22,8 @@ const ListaSeguimiento = () => {
 
     if (user) {
       const db = firebase.firestore();
-      const userCollection = db.collection(user.uid);
-      const listaSeguimientoDocument = userCollection.doc('Lista-seguimiento');
+      const userCollection = db.collection('usuarios').doc(user.uid).collection('lista-seguimiento');
+      const listaSeguimientoDocument = userCollection.doc('datos');
 
       listaSeguimientoDocument.get().then((doc) => {
         if (doc.exists) {
@@ -61,8 +61,8 @@ const ListaSeguimiento = () => {
 
     if (user) {
       const db = firebase.firestore();
-      const userCollection = db.collection(user.uid);
-      const listaSeguimientoDocument = userCollection.doc('Lista-seguimiento');
+      const userCollection = db.collection('usuarios').doc(user.uid).collection('lista-seguimiento');
+      const listaSeguimientoDocument = userCollection.doc('datos');
 
       listaSeguimientoDocument.update({
         [id]: firebase.firestore.FieldValue.delete()

@@ -22,8 +22,8 @@ const PorMirar = () => {
 
     if (user) {
       const db = firebase.firestore();
-      const userCollection = db.collection(user.uid);
-      const listaPorVerDocument = userCollection.doc('lista-por-ver');
+      const userCollection = db.collection('usuarios').doc(user.uid).collection('por-mirar');
+      const listaPorVerDocument = userCollection.doc('datos');
 
       listaPorVerDocument.get().then((doc) => {
         if (doc.exists) {
@@ -61,8 +61,8 @@ const PorMirar = () => {
 
     if (user) {
       const db = firebase.firestore();
-      const userCollection = db.collection(user.uid);
-      const listaPorVerDocument = userCollection.doc('lista-por-ver');
+      const userCollection = db.collection('usuarios').doc(user.uid).collection('por-mirar');
+      const listaPorVerDocument = userCollection.doc('datos');
 
       listaPorVerDocument.update({
         [id]: firebase.firestore.FieldValue.delete()

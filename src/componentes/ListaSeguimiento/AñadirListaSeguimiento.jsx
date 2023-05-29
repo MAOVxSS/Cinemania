@@ -9,14 +9,13 @@ import { Button } from 'react-bootstrap';
 firebase.initializeApp(firebaseConfig);
 
 const AñadirListaSeguimiento = ({ idPelicula }) => {
-
   useEffect(() => {
     const user = firebase.auth().currentUser;
 
     if (user) {
       const db = firebase.firestore();
-      const userCollection = db.collection(user.uid);
-      const userDocument = userCollection.doc('Lista-seguimiento');
+      const userCollection = db.collection('usuarios').doc(user.uid).collection('lista-seguimiento');
+      const userDocument = userCollection.doc('datos');
 
       userDocument.get().then((doc) => {
         if (!doc.exists) {
@@ -38,8 +37,8 @@ const AñadirListaSeguimiento = ({ idPelicula }) => {
 
     if (user) {
       const db = firebase.firestore();
-      const userCollection = db.collection(user.uid);
-      const listaSeguimientoDocument = userCollection.doc('Lista-seguimiento');
+      const userCollection = db.collection('usuarios').doc(user.uid).collection('lista-seguimiento');
+      const listaSeguimientoDocument = userCollection.doc('datos');
 
       listaSeguimientoDocument.update({ [idPelicula]: true }).then(() => {
         console.log('Película agregada a la lista de seguimiento');

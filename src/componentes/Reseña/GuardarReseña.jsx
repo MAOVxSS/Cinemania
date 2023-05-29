@@ -14,8 +14,8 @@ const GuardarReseña = ({ peliculaId, reseña, onGuardar }) => {
       if (user) {
         const uid = user.uid;
         const db = firebase.firestore();
-        const usuarioCollection = db.collection(uid);
-        const reseñasDocument = usuarioCollection.doc('reseñas');
+        const usuarioCollection = db.collection('usuarios').doc(uid).collection('reseñas');
+        const reseñasDocument = usuarioCollection.doc('datos');
 
         // Obtener las reseñas existentes
         const doc = await reseñasDocument.get();
