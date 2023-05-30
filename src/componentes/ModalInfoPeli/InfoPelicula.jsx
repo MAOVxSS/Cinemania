@@ -103,7 +103,7 @@ const InfoPelicula = ({ pelicula, onClose }) => {
     return null;
   }
   return (
-    <Modal show={!!pelicula} onHide={onClose}>
+    <Modal show={!!pelicula} onHide={onClose} dialogClassName="modal-xl">
       <Modal.Header closeButton className="bg-dark text-white">
         <Modal.Title>{pelicula.title}</Modal.Title>
       </Modal.Header>
@@ -154,9 +154,7 @@ const InfoPelicula = ({ pelicula, onClose }) => {
           <label>Valoración:</label>
           {/* Calificación */}
         </div>
-        <div>
           <ReseñasPelicula peliculaId={pelicula.id} />
-        </div>
       </Modal.Footer>
     </Modal>
   );
