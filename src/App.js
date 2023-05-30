@@ -18,6 +18,7 @@ import PorMirar from './componentes/PorVer/PorMirar';
 import RegistroUsuario from './componentes/Login/RegistroUsuario';
 import PersonalizarCuenta from './componentes/Login/PersonalizarCuenta';
 import Historial from './componentes/Historial/Historial';
+import Comunidad from './componentes/Comunidad/Comunidad';
 
 
 // Librerias para la creacion de rutas
@@ -30,6 +31,7 @@ import {
 
 // Importacion de herramientas de bootstrap
 import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
+
 
 
 function App() {
@@ -105,6 +107,7 @@ function App() {
           <Route path="/lista-seguimiento" element={<ListaSeguimiento />} />
           <Route path="/peliculas-ver" element={<PorMirar />} />
           <Route exact path="/historial" element={<Historial />} />
+          <Route exact path="/comunidad" element={<Comunidad />} />
           {/* {isLoggedIn && (
             <Route path="/guardar-caracteres" element={<GuardarCaracteres />} />
           )} */}
