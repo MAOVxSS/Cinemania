@@ -8,8 +8,9 @@ import firebaseConfig from '../firebaseConfig/firebaseConfig';
 // Componentes
 import AñadirListaSeguimiento from '../ListaSeguimiento/AñadirListaSeguimiento';
 import AñadirPorMirar from '../PorVer/AñadirPorMirar';
-import GuardarReseña from '../Reseña/GuardarReseña';
-import ReseñasPelicula from '../Reseña/ReseñasPelicula';
+import GuardarReseña from '../Reseña_Valoracion/GuardarReseña';
+import ReseñasPelicula from '../Reseña_Valoracion/ReseñasPelicula';
+import Valoracion from '../Reseña_Valoracion/Valoracion';
 
 // Inicializa Firebase
 firebase.initializeApp(firebaseConfig);
@@ -151,7 +152,7 @@ const InfoPelicula = ({ pelicula, onClose }) => {
         {/* Guardar reseña */}
         <GuardarReseña peliculaId={pelicula.id} reseña={resena} onGuardar={limpiarResena} />
         <div className="rating-stars">
-          <label>Valoración:</label>
+          <Valoracion idPelicula={pelicula.id}/>
           {/* Calificación */}
         </div>
           <ReseñasPelicula peliculaId={pelicula.id} />

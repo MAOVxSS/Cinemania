@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import firebaseConfig from '../firebaseConfig/firebaseConfig';
+import ValoracionEstrellas from './ValoracionEstrellas';
 
 // Inicializa Firebase
 firebase.initializeApp(firebaseConfig);
@@ -9,6 +10,7 @@ firebase.initializeApp(firebaseConfig);
 const ResenasPelicula = ({ peliculaId }) => {
   const [reseñas, setReseñas] = useState([]);
   const [usuarios, setUsuarios] = useState({});
+  const [valoraciones, setValoraciones] = useState({});
 
   useEffect(() => {
     const db = firebase.firestore();
@@ -26,6 +28,7 @@ const ResenasPelicula = ({ peliculaId }) => {
           // Obtiene los UIDs de los usuarios en las reseñas filtradas
           const usuariosUIDs = reseñasFiltradas.map((res) => res.uid);
           obtenerNombresUsuarios(usuariosUIDs);
+          obtenerValoraciones(usuariosUIDs);
         }
       })
       .catch((error) => {
@@ -58,6 +61,31 @@ const ResenasPelicula = ({ peliculaId }) => {
       });
   };
 
+  const obtenerValoraciones = (usuariosUIDs) => {
+    const db = firebase.firestore();
+    const valoracionCollection = db.collection('valoracion');
+    const valoracionDocument = valoracionCollection.doc('datos');
+
+    valoracionDocument
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          const listaValoraciones = doc.data().datos;
+          const valoracionesObject = {};
+          usuariosUIDs.forEach((uid) => {
+            const valoracionUsuario = listaValoraciones.find((valoracion) => valoracion.uid === uid);
+            if (valoracionUsuario) {
+              valoracionesObject[uid] = valoracionUsuario.valor;
+            }
+          });
+          setValoraciones(valoracionesObject);
+        }
+      })
+      .catch((error) => {
+        console.error('Error al obtener las valoraciones:', error);
+      });
+  };
+
   return (
     <div className="modal-content bg-dark">
       <div className="modal-header text-center">
@@ -70,6 +98,9 @@ const ResenasPelicula = ({ peliculaId }) => {
               <li className="list-group-item" key={`${res.uid}-${index}`}>
                 <p className="mb-0">Usuario: {usuarios[res.uid]}</p>
                 <p className="mb-1">Reseña: {res.reseña}</p>
+                {valoraciones[res.uid] && (
+                  <ValoracionEstrellas valoracion={valoraciones[res.uid]} />
+                )}
               </li>
             ))}
           </ul>
