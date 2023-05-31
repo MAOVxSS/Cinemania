@@ -11,11 +11,14 @@ import AñadirPorMirar from '../PorVer/AñadirPorMirar';
 import GuardarReseña from '../Reseña_Valoracion/GuardarReseña';
 import ReseñasPelicula from '../Reseña_Valoracion/ReseñasPelicula';
 import Valoracion from '../Reseña_Valoracion/Valoracion';
+import Compartir from '../Compartir/Compartir';
 
 // Inicializa Firebase
 firebase.initializeApp(firebaseConfig);
 
 const InfoPelicula = ({ pelicula, onClose }) => {
+  // estados para manejar la reseña y los generos
+  // Los generos estan en una matriz por lo cual se debe acceder a traves de map
   const [resena, setResena] = useState('');
   const [generos, setGeneros] = useState([]);
 
@@ -37,6 +40,7 @@ const InfoPelicula = ({ pelicula, onClose }) => {
     }
   }, [pelicula]);
 
+  // Funcion para obtener reseñas
   const obtenerGeneros = async () => {
     const API_KEY = '7e7a5dfc44d92090d322e49610a9e8ba';
     try {
@@ -49,6 +53,7 @@ const InfoPelicula = ({ pelicula, onClose }) => {
     }
   };
 
+  // Funcion para obtener los nombres de generos correspondientes utlizando la inforamcion del estado generos
   const obtenerNombresGeneros = (generoIds) => {
     const nombresGeneros = generoIds.map((generoId) => {
       const genero = generos.find((genero) => genero.id === generoId);
@@ -57,6 +62,7 @@ const InfoPelicula = ({ pelicula, onClose }) => {
     return nombresGeneros.join(', ');
   };
 
+// funcion para guardar el historial
   const guardarHistorial = async (peliculaId) => {
     try {
       const user = firebase.auth().currentUser;
@@ -151,10 +157,12 @@ const InfoPelicula = ({ pelicula, onClose }) => {
         <AñadirPorMirar idPelicula={pelicula.id} />
         {/* Guardar reseña */}
         <GuardarReseña peliculaId={pelicula.id} reseña={resena} onGuardar={limpiarResena} />
+        {/* Calificación */}
         <div className="rating-stars">
-          <Valoracion idPelicula={pelicula.id}/>
-          {/* Calificación */}
+          <Valoracion idPelicula={pelicula.id}/>   
         </div>
+        {/* Compartir */}
+        <Compartir peliculaId={pelicula.id} />
           <ReseñasPelicula peliculaId={pelicula.id} />
       </Modal.Footer>
     </Modal>

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+// acceso a la firestore
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import firebaseConfig from '../../firebaseConfig/firebaseConfig';
@@ -12,7 +13,7 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
-  // Eventos para manejar el correo y contraseña
+  // Eventos para manejar el correo y contraseña, para inciar sesion
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
   };

@@ -17,6 +17,7 @@ const Historial = () => {
     const user = firebase.auth().currentUser;
 
     if (user) {
+      // Se accede ala coleccion de la firestore
       const db = firebase.firestore();
       const historialCollection = db.collection('historial');
       const historialDocument = historialCollection.doc('datos');
@@ -26,6 +27,7 @@ const Historial = () => {
         .then((doc) => {
           if (doc.exists) {
             const peliculasData = doc.data().peliculas || [];
+            // Se busca el mismo uid
             const peliculasUsuario = peliculasData.filter((pelicula) => pelicula.uid === user.uid);
             const peliculasUnicas = obtenerPeliculasUnicas(peliculasUsuario);
             obtenerPeliculas(peliculasUnicas);
@@ -37,6 +39,7 @@ const Historial = () => {
     }
   }, []);
 
+  // Funcion para obtener peliculas sin repetirse
   const obtenerPeliculasUnicas = (peliculasUsuario) => {
     const peliculasIds = peliculasUsuario.map((pelicula) => pelicula.peliculaId);
     const peliculasUnicas = [];
@@ -50,6 +53,7 @@ const Historial = () => {
     return peliculasUnicas;
   };
 
+  // Se obtienes las peliculas dependiendo del id de la misma
   const obtenerPeliculas = async (peliculasUnicas) => {
     const API_KEY = '7e7a5dfc44d92090d322e49610a9e8ba';
 
@@ -88,6 +92,7 @@ const Historial = () => {
     }
   }, [peliculas, peliculasPorPagina, indiceInicio]);
 
+  // Funcion para borrar el historial completo de la bd
   const borrarHistorial = () => {
     const user = firebase.auth().currentUser;
 
