@@ -10,48 +10,6 @@ const Notificaciones = () => {
   const [peliculas, setPeliculas] = useState({});
   const [modalVisible, setModalVisible] = useState(true);
 
-    // Función para obtener información de las películas recomendadas
-    const obtenerInformacionPeliculas = useCallback(async (peliculasIDs) => {
-      try {
-        const apiKey = '7e7a5dfc44d92090d322e49610a9e8ba';
-        const requests = peliculasIDs.map((peliculaID) =>
-          fetch(`https://api.themoviedb.org/3/movie/${peliculaID}?api_key=${apiKey}&language=es`)
-        );
-        const responses = await Promise.all(requests);
-        const peliculasData = {};
-        for (const response of responses) {
-          const pelicula = await response.json();
-          peliculasData[pelicula.id] = {
-            titulo: pelicula.title,
-            poster: pelicula.poster_path,
-          };
-        }
-        setPeliculas(peliculasData);
-      } catch (error) {
-        console.error('Error al obtener la información de las películas:', error);
-      }
-    }, []);
-
-       // Función para obtener los nombres de los usuarios que han enviado las notificaciones
-  const obtenerNombresUsuarios = useCallback(async (usuariosUIDs) => {
-    try {
-      const db = firebase.firestore();
-      const usuariosSnapshot = await db.collection('info-usuario').doc('datos').get();
-      if (usuariosSnapshot.exists) {
-        const usuariosData = usuariosSnapshot.data().datos || [];
-        const usuariosObject = {};
-        usuariosData.forEach((usuario) => {
-          if (usuariosUIDs.includes(usuario.uid)) {
-            usuariosObject[usuario.uid] = usuario.apodo;
-          }
-        });
-        setUsuarios(usuariosObject);
-      }
-    } catch (error) {
-      console.error('Error al obtener los nombres de usuario:', error);
-    }
-  }, []);
-
   // Función para obtener las notificaciones del usuario actual
   const obtenerNotificaciones = useCallback(async () => {
     try {
@@ -89,11 +47,49 @@ const Notificaciones = () => {
     } catch (error) {
       console.error('Error al obtener las notificaciones:', error);
     }
-  }, [obtenerInformacionPeliculas, obtenerNombresUsuarios]);
+  }, []);
 
+   // Función para obtener los nombres de los usuarios que han enviado las notificaciones
+  const obtenerNombresUsuarios = useCallback(async (usuariosUIDs) => {
+    try {
+      const db = firebase.firestore();
+      const usuariosSnapshot = await db.collection('info-usuario').doc('datos').get();
+      if (usuariosSnapshot.exists) {
+        const usuariosData = usuariosSnapshot.data().datos || [];
+        const usuariosObject = {};
+        usuariosData.forEach((usuario) => {
+          if (usuariosUIDs.includes(usuario.uid)) {
+            usuariosObject[usuario.uid] = usuario.apodo;
+          }
+        });
+        setUsuarios(usuariosObject);
+      }
+    } catch (error) {
+      console.error('Error al obtener los nombres de usuario:', error);
+    }
+  }, []);
 
-
-
+  // Función para obtener información de las películas recomendadas
+  const obtenerInformacionPeliculas = useCallback(async (peliculasIDs) => {
+    try {
+      const apiKey = '7e7a5dfc44d92090d322e49610a9e8ba';
+      const requests = peliculasIDs.map((peliculaID) =>
+        fetch(`https://api.themoviedb.org/3/movie/${peliculaID}?api_key=${apiKey}&language=es`)
+      );
+      const responses = await Promise.all(requests);
+      const peliculasData = {};
+      for (const response of responses) {
+        const pelicula = await response.json();
+        peliculasData[pelicula.id] = {
+          titulo: pelicula.title,
+          poster: pelicula.poster_path,
+        };
+      }
+      setPeliculas(peliculasData);
+    } catch (error) {
+      console.error('Error al obtener la información de las películas:', error);
+    }
+  }, []);
 
   useEffect(() => {
     obtenerNotificaciones();
