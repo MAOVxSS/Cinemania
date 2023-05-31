@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import firebaseConfig from '../firebaseConfig/firebaseConfig';
-
+// Estilos
 import { Modal, Button, Nav, Alert, Form, InputGroup } from 'react-bootstrap';
 import { BsEye, BsEyeSlash } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
@@ -12,6 +12,7 @@ import { Link } from 'react-router-dom';
 firebase.initializeApp(firebaseConfig);
 
 const VentanaLogin = ({ onLogin, onLogout}) => {
+  //Estados para el formulario
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');

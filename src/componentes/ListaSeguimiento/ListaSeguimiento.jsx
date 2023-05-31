@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
+// Acceso a la firestore
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import firebaseConfig from '../firebaseConfig/firebaseConfig';
 
 // Para solicitud HTTP
 import axios from 'axios';
-
+// Estilos
 import { Card, Container, Row, Col, Pagination, Button } from 'react-bootstrap';
 
 // Inicializa Firebase
@@ -21,6 +22,7 @@ const ListaSeguimiento = () => {
     const user = firebase.auth().currentUser;
 
     if (user) {
+      // acceso a la base de datos
       const db = firebase.firestore();
       const listaSeguimientoCollection = db.collection('lista-seguimiento');
       const listaSeguimientoDocument = listaSeguimientoCollection.doc('datos');
@@ -44,9 +46,8 @@ const ListaSeguimiento = () => {
     }
   }, []);
 
+  // Funcion para hacer una consulta a la API con el id de la pelicula y obtner sus datos
   const obtenerPeliculas = async (ids) => {
-    // Aquí debes realizar una solicitud a tu API o base de datos para obtener los detalles de las películas según las IDs
-    // A continuación se muestra un ejemplo de cómo podrías hacerlo con axios:
 
     const requests = ids.map((id) =>
       axios.get(`https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}&language=es`)

@@ -1,15 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Row, Col, Card, Pagination } from 'react-bootstrap';
+// Hook
 import { useLocation } from 'react-router-dom';
-import axios from 'axios';
+// Estilos
+import { Container, Row, Col, Card, Pagination } from 'react-bootstrap';
 import { FaExclamationCircle } from 'react-icons/fa';
+
+// Para la solicitud HTTP
+import axios from 'axios';
 
 // Componentes
 import InfoPelicula from '../ModalInfoPeli/InfoPelicula';
 
 const ResultadosBusqueda = () => {
+  // Estados para manejo de los resultados
   const [resultados, setResultados] = useState([]);
   const [peliculaSeleccionada, setPeliculaSeleccionada] = useState(null);
+  // Estados para la paginacion
   const [paginaActual, setPaginaActual] = useState(1);
   const [totalPaginas, setTotalPaginas] = useState(1);
   const [error, setError] = useState(null);
@@ -54,9 +60,12 @@ const ResultadosBusqueda = () => {
 
   const generarPaginacion = () => {
     const paginasMostradas = 5; // Número máximo de páginas a mostrar
-    const rangoInicio = Math.max(1, paginaActual - Math.floor(paginasMostradas / 2));
-    const rangoFin = Math.min(totalPaginas, rangoInicio + paginasMostradas - 1);
-
+    // Calcula el inicio del rango de páginas a mostrar
+    const rangoInicio = Math.max(1, paginaActual - Math.floor(paginasMostradas / 2)); 
+    // Calcula el fin del rango de páginas a mostrar
+    const rangoFin = Math.min(totalPaginas, rangoInicio + paginasMostradas - 1); 
+  
+    // Genera un array de elementos de paginación
     return Array.from({ length: rangoFin - rangoInicio + 1 }, (_, index) => {
       const numeroPagina = rangoInicio + index;
       return (
@@ -70,11 +79,11 @@ const ResultadosBusqueda = () => {
       );
     });
   };
+  
 
   return (
     <Container className="text-white">
       <h1>Resultados de búsqueda: {searchQuery}</h1>
-
       {/* Validación y mensaje de error */}
       {error ? (
         <Row className="justify-content-center">
@@ -117,7 +126,6 @@ const ResultadosBusqueda = () => {
           )}
         </>
       )}
-
       {/* Modal de información de película */}
       <InfoPelicula pelicula={peliculaSeleccionada} onClose={cerrarModal} />
     </Container>

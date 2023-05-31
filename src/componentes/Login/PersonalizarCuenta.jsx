@@ -1,16 +1,20 @@
 import React, { useState, useEffect } from 'react';
+// Hook
 import { useNavigate } from 'react-router-dom';
+// acceso a la firestore
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import firebaseConfig from '../firebaseConfig/firebaseConfig';
+// Estilos
 import { Form, Button, Modal } from 'react-bootstrap';
-
+// constantes 
 import { icono_B64_1, icono_B64_2, icono_B64_3, icono_B64_4, icono_B64_5 } from '../Imagenes/IconosBase64';
 
 // Inicializa Firebase
 firebase.initializeApp(firebaseConfig);
 
 const PersonalizarCuenta = () => {
+  // Estados para manejar la informacion que entra y manejo del modal
   const navigate = useNavigate();
   const [nombreCompleto, setNombreCompleto] = useState('');
   const [apodo, setApodo] = useState('');
@@ -28,6 +32,7 @@ const PersonalizarCuenta = () => {
     obtenerDatosUsuario();
   }, []);
 
+  // Funcion para obtener datos si ya existen en la base de datos
   const obtenerDatosUsuario = () => {
     const user = firebase.auth().currentUser;
     const db = firebase.firestore();
@@ -67,6 +72,7 @@ const PersonalizarCuenta = () => {
   };
   
 
+  // Funcion para guardar datos nuevos o actualizarlos
   const handleGuardarDatos = (e) => {
     e.preventDefault();
   
@@ -116,7 +122,6 @@ const PersonalizarCuenta = () => {
                 uid: user.uid
               });
             }
-  
             userInfoDocument
               .update({ datos })
               .then(() => {

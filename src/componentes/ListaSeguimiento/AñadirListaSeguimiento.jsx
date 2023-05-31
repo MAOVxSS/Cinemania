@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
+// Acceso a la firestore
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import firebaseConfig from '../firebaseConfig/firebaseConfig';
 
+// Estilos
 import { Button } from 'react-bootstrap';
 
 // Inicializa Firebase
@@ -12,6 +14,7 @@ const AñadirListaSeguimiento = ({ idPelicula }) => {
   useEffect(() => {
     const user = firebase.auth().currentUser;
 
+    // Se accede a la base de datos
     if (user) {
       const db = firebase.firestore();
       const listaSeguimientoCollection = db.collection('lista-seguimiento');
@@ -40,6 +43,7 @@ const AñadirListaSeguimiento = ({ idPelicula }) => {
     }
   }, []);
 
+// Se añade la pelicula y el uid ala base de datos
   const handleAñadirListaSeguimiento = () => {
     const user = firebase.auth().currentUser;
 

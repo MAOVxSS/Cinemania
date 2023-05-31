@@ -8,6 +8,7 @@ import { Container, Row, Col, Form, Button, Modal } from 'react-bootstrap';
 const RegistroUsuario = () => {
   const navigate = useNavigate();
 
+  // Se manejan los estados para registrar un nuevo correo y contraseña
   const [correoElectronico, setCorreoElectronico] = useState('');
   const [contrasena, setContrasena] = useState('');
   const [confirmarContrasena, setConfirmarContrasena] = useState('');
@@ -20,6 +21,7 @@ const RegistroUsuario = () => {
     setErrorRegistro('');
     setRegistroExitoso(false);
 
+    // Validacion si coinciden las contraseñas
     if (contrasena !== confirmarContrasena) {
       setErrorRegistro('Las contraseñas no coinciden.');
       return;
@@ -92,7 +94,7 @@ const RegistroUsuario = () => {
           <Modal.Title>Registro Exitoso</Modal.Title>
         </Modal.Header>
         <Modal.Body className="bg-dark text-white">
-          <p>Tu registro ha sido exitoso. ¡Bienvenido(a)!</p>
+          <p>Tu registro ha sido exitoso. !Vuelve a iniciar sesion¡</p>
         </Modal.Body>
         <Modal.Footer className="bg-dark text-white">
           <Button variant="primary" onClick={handleCloseModal}>

@@ -56,6 +56,7 @@ const ResenasPelicula = ({ peliculaId }) => {
           setUsuarios(usuariosObject);
         }
       })
+      
       .catch((error) => {
         console.error('Error al obtener la información de usuario:', error);
       });

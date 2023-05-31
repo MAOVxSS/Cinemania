@@ -1,9 +1,19 @@
 import React, { useState } from 'react';
+
 // Librerias necesarias para usar react-bootstrap
 import 'bootstrap/dist/css/bootstrap.min.css';
-
 // Importacion de hoja de estilos
 import './App.css';
+// Importacion de herramientas de bootstrap
+import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
+
+// Librerias para la creacion de rutas
+import {
+  BrowserRouter as Router,
+  Link,
+  Routes,
+  Route,
+} from "react-router-dom";
 
 // Importacion de componentes
 import { logoBase64 } from './componentes/Imagenes/ImagenBase64';
@@ -19,27 +29,15 @@ import RegistroUsuario from './componentes/Login/RegistroUsuario';
 import PersonalizarCuenta from './componentes/Login/PersonalizarCuenta';
 import Historial from './componentes/Historial/Historial';
 import Comunidad from './componentes/Comunidad/Comunidad';
-
-
-// Librerias para la creacion de rutas
-import {
-  BrowserRouter as Router,
-  Link,
-  Routes,
-  Route,
-} from "react-router-dom";
-
-// Importacion de herramientas de bootstrap
-import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
-
-
+import Notificaciones from './componentes/Notificaciones/Notificaciones';
+import Nosotros from './componentes/SobreNosotros/Nosotros';
 
 function App() {
-
   const logo = logoBase64;
 
   // Estados
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
 
 
   const handleLogin = () => {
@@ -50,9 +48,14 @@ function App() {
     setIsLoggedIn(false);
   };
 
+  const toggleNotificationsModal = () => {
+    setModalVisible(!modalVisible);
+  };
+
   return (
     <Router>
       <div>
+        {/* Barra de navegacion */}
         <Navbar bg="dark" variant="dark" expand="lg">
           <Container fluid>
             <Navbar.Brand as={Link} to="/">
@@ -78,6 +81,7 @@ function App() {
                     <NavDropdown.Item as={Link} to="/lista-seguimiento">Favoritos</NavDropdown.Item>
                     <NavDropdown.Item as={Link} to="/peliculas-ver">Películas por ver</NavDropdown.Item>
                     <NavDropdown.Item as={Link} to="/historial">Historial</NavDropdown.Item>
+                    <NavDropdown.Item onClick={toggleNotificationsModal}>Notificaciones</NavDropdown.Item>
                     <NavDropdown.Item onClick={handleLogout}>Cerrar sesión</NavDropdown.Item>
                   </NavDropdown>
                 ) : (
@@ -108,6 +112,7 @@ function App() {
           <Route path="/peliculas-ver" element={<PorMirar />} />
           <Route exact path="/historial" element={<Historial />} />
           <Route exact path="/comunidad" element={<Comunidad />} />
+          <Route exact path="/sobre-nosotros" element={<Nosotros />} />
           {/* {isLoggedIn && (
             <Route path="/guardar-caracteres" element={<GuardarCaracteres />} />
           )} */}
@@ -117,6 +122,12 @@ function App() {
       <div className='container mt-5'>
         <Banner />
       </div>
+      {modalVisible && (
+        <Notificaciones showModal={modalVisible} 
+        setShowModal={setModalVisible} 
+        handleCloseModal={toggleNotificationsModal} 
+        />
+      )}
     </Router>
   );
 }

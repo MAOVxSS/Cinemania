@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import {
   Container,
-  Row, Col, Form,
-  Pagination, OverlayTrigger,
-  Tooltip, Button
+  Row,
+  Col,
+  Form,
+  Pagination,
+  OverlayTrigger,
+  Tooltip,
+  Button
 } from 'react-bootstrap';
 import axios from 'axios';
 
@@ -12,27 +16,40 @@ import { FaArrowRight } from 'react-icons/fa';
 import InfoPelicula from '../ModalInfoPeli/InfoPelicula';
 
 const PaginaPeliculas = () => {
+  // Clave de API para el servicio externo
   const API_KEY = '7e7a5dfc44d92090d322e49610a9e8ba';
   const perPage = 5;
 
+  // Estado para la película seleccionada en el modal
   const [peliculaSeleccionada, setPeliculaSeleccionada] = useState(null);
+  // Estado para la letra seleccionada en el filtro
   const [letraSeleccionada, setLetraSeleccionada] = useState('');
+  // Estado para el género seleccionado en el filtro
   const [generoSeleccionado, setGeneroSeleccionado] = useState('');
+  // Estado para el año de búsqueda
   const [anioBusqueda, setAnioBusqueda] = useState('');
+  // Estado para la lista completa de películas
   const [peliculas, setPeliculas] = useState([]);
+  // Estado para las películas mostradas en la página actual
   const [peliculasPaginadas, setPeliculasPaginadas] = useState([]);
+  // Estado para el número de página actual
   const [currentPage, setCurrentPage] = useState(1);
+  // Estado para el número total de páginas
   const [totalPages, setTotalPages] = useState(0);
+  // Estado para la lista de géneros
   const [generos, setGeneros] = useState([]);
 
+  // Función para cerrar el modal
   const handleCloseModal = () => {
     setPeliculaSeleccionada(null);
   };
 
+  // Función para abrir el modal con una película
   const handleOpenModal = (pelicula) => {
     setPeliculaSeleccionada(pelicula);
   };
 
+  // Obtener las películas filtradas por letra inicial
   const obtenerPeliculasFiltradasPorLetra = async (letra) => {
     try {
       const response = await axios.get(
@@ -49,6 +66,7 @@ const PaginaPeliculas = () => {
     }
   };
 
+  // Obtener las películas filtradas por género
   const obtenerPeliculasFiltradasPorGenero = async (generoId) => {
     try {
       const response = await axios.get(
@@ -63,6 +81,7 @@ const PaginaPeliculas = () => {
     }
   };
 
+  // Obtener las películas filtradas por año
   const obtenerPeliculasFiltradasPorAnio = async (anio) => {
     try {
       const response = await axios.get(
@@ -77,6 +96,7 @@ const PaginaPeliculas = () => {
     }
   };
 
+  // Obtener la lista de géneros
   const obtenerGeneros = async () => {
     try {
       const response = await axios.get(
@@ -89,6 +109,7 @@ const PaginaPeliculas = () => {
     }
   };
 
+  // Manejar la selección de letra
   const handleLetraSeleccionada = async (letra) => {
     setLetraSeleccionada(letra);
     setGeneroSeleccionado('');
@@ -101,6 +122,7 @@ const PaginaPeliculas = () => {
     }
   };
 
+  // Manejar la selección de género
   const handleGeneroSeleccionado = async (generoId) => {
     setGeneroSeleccionado(generoId);
     setLetraSeleccionada('');
@@ -115,10 +137,12 @@ const PaginaPeliculas = () => {
     }
   };
 
+  // Manejar el cambio de año de búsqueda
   const handleAnioBusqueda = (e) => {
     setAnioBusqueda(e.target.value);
   };
 
+  // Realizar la búsqueda por año
   const buscarPorAnio = async () => {
     if (anioBusqueda) {
       const peliculasFiltradas = await obtenerPeliculasFiltradasPorAnio(anioBusqueda);
@@ -129,10 +153,12 @@ const PaginaPeliculas = () => {
     }
   };
 
+  // Manejar el cambio de página
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
 
+  // Actualizar las películas mostradas en la página actual
   useEffect(() => {
     const start = (currentPage - 1) * perPage;
     const end = start + perPage;
@@ -140,10 +166,12 @@ const PaginaPeliculas = () => {
     setPeliculasPaginadas(peliculasFiltradas);
   }, [peliculas, currentPage]);
 
+  // Obtener la lista de géneros al cargar el componente
   useEffect(() => {
     obtenerGeneros();
   }, []);
 
+  // Renderizar las opciones de letras del abecedario
   const renderLetrasAbecedario = () => {
     const letras = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     return letras.split('').map((letra) => (
@@ -160,6 +188,7 @@ const PaginaPeliculas = () => {
     ));
   };
 
+  // Renderizar las opciones de género
   const renderGeneros = () => {
     return (
       <Form.Group controlId="genero">
@@ -174,6 +203,7 @@ const PaginaPeliculas = () => {
     );
   };
 
+  // Renderizar el formulario de búsqueda por año
   const renderAnioBusqueda = () => {
     return (
       <Form.Group controlId="anio" className='mt-2'>
@@ -202,6 +232,8 @@ const PaginaPeliculas = () => {
       </Form.Group>
     );
   };
+
+  // Renderizar el componente
   return (
     <div>
       <Container>
@@ -234,32 +266,24 @@ const PaginaPeliculas = () => {
             {peliculas.length > 0 && (
               <div className="mt-4 d-flex justify-content-center">
                 <Pagination>
-                  <Pagination.First onClick={() => handlePageChange(1)} />
-                  <Pagination.Prev
-                    onClick={() => handlePageChange(currentPage - 1)}
-                    disabled={currentPage === 1}
-                  />
-                  {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                  {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNumber) => (
                     <Pagination.Item
-                      key={page}
-                      active={page === currentPage}
-                      onClick={() => handlePageChange(page)}
+                      key={pageNumber}
+                      active={pageNumber === currentPage}
+                      onClick={() => handlePageChange(pageNumber)}
                     >
-                      {page}
+                      {pageNumber}
                     </Pagination.Item>
                   ))}
-                  <Pagination.Next
-                    onClick={() => handlePageChange(currentPage + 1)}
-                    disabled={currentPage === totalPages}
-                  />
-                  <Pagination.Last onClick={() => handlePageChange(totalPages)} />
                 </Pagination>
               </div>
             )}
           </Col>
         </Row>
       </Container>
-      <InfoPelicula pelicula={peliculaSeleccionada} onClose={handleCloseModal} />
+      {peliculaSeleccionada && (
+        <InfoPelicula pelicula={peliculaSeleccionada} handleClose={handleCloseModal} />
+      )}
     </div>
   );
 };
